@@ -9,17 +9,6 @@ div.topnav{
     position: absolute;
 }
 
-div.leftnav{
-    margin-top: 102px;
-    z-index: 100;
-    position: absolute;
-    width: 150px;
-    height: 1000px;
-    background-color: #ffffff;
-    box-shadow: 2px 2px 10px 2px #CCE3EC;
-    opacity: 0.8;
-}
-
 div.outring{
     width: 32px;
     height: 32px;
@@ -72,10 +61,8 @@ div.iconsearch:after{
     background-color: red;
 }
 
-p1{
+div.topnav p1{
     z-index: 300;
-    font-family: 'Source Sans Pro';
-    src: url('./css/SourceHanSansSC-light.otf');
     font-size: 20px;
     position: absolute;
     margin-left: 100px;
@@ -85,10 +72,8 @@ p1{
     font-weight: bold;
 }
 
-p2{
+div.topnav p2{
     z-index: 300;
-    font-family: 'Source Sans Pro';
-    src: url('./css/SourceHanSansSC-light.otf');
     font-size: 6px;
     position: absolute;
     margin-left: 130px;
@@ -101,13 +86,12 @@ p2{
 input.search{
     border-width:0;
     font-size: 20px;
-    font-family: 'Source Sans Pro';
-    src: url('./css/SourceHanSansSC-light.otf');
     position: absolute;
     margin-left: 40px;
     margin-top: -18px;
     width: 600px;
     font-weight: 100;
+    outline: none;
 }
 
 div.iconmail{
@@ -155,3 +139,129 @@ div.account{
     overflow: hidden;
 }
 
+div.leftnav{
+    margin-top: 102px;
+    z-index: 100;
+    position: absolute;
+    width: 150px;
+    height: 1000px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 10px 2px #CCE3EC;
+    opacity: 0.8;
+}
+
+ul{
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+}
+
+ul li{
+    position: relative;
+    margin: 80px auto;
+    text-align: center;
+}
+
+ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+div.choose1{
+    z-index: 400;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+div.content{
+    margin-top: 102px;
+    margin-left: 150px;
+    position: absolute;
+    width: 1250px;
+    height: 1000px;
+    background-color: #f9f9f9;
+    opacity: 0.8;
+}
+div.inputtime{
+    margin: 60px auto;
+    height: 1.5em;
+    width: 80%;
+    display: table;
+}
+div.inputtime p3{
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: red;
+    display: table-cell;
+    width: 154px;
+}
+div.inputtime p4{
+    display: table-cell;
+    width: 30px;
+    text-align: center;
+}
+div.inputtime p5{
+    display: table-cell;
+    width: 62px;
+    font-size: 20px;
+    text-align: center;
+}
+div.inputtime p6{
+    display: table-cell;
+    width: 124px;
+    text-align: right;
+    font-weight: bold;
+}
+div.inputtime .inputrange{
+    display: table-cell;
+    width: 155px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid pink;
+    text-align: right;
+}
+div.inputtime .inputyear{
+    display: table-cell;
+    width: 62px;
+    border-radius: 12px;
+    border: 1px solid pink;
+    overflow: hidden;
+    text-align: center;
+}
+div.inputtime .inputdaymon{
+    display:table-cell;
+    width:30px;
+    border-radius: 12px;
+    border: 1px solid pink;
+    overflow: hidden;
+    text-align: center;
+}
+div.inputtime input{
+    width: 30px;
+    outline: none;
+    border: none;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+div.variables{
+    position: relative;
+    margin-left: 125px;
+    height: 400px;
+    width: 350px;
+    margin-top: 20px;
+}
+div.choosedvariables{
+    position: relative;
+    margin-left: 500px;
+    margin-top: -820px;
+    height: 800px;
+    width: 540px;
+}
+div.rightsidebar{
+    width: 135px;
+    margin-left: 1100px;
+    position: relative;
+    height: 800px;
+    margin-top:-800px;
+}

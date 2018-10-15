@@ -149,29 +149,26 @@ div.leftnav{
     box-shadow: 2px 2px 10px 2px #CCE3EC;
     opacity: 0.8;
 }
-
 ul{
     list-style-type: none;
     overflow: hidden;
     padding: 0;
 }
 
-ul li{
+.leftnav ul li{
     position: relative;
     margin: 80px auto;
     text-align: center;
 }
 
-ul li a{
+.leftnav a{
     text-decoration: none;
     color: black;
 }
 
-div.choose1{
-    z-index: 400;
+.leftnav ul li .photo1{
     position: absolute;
-    left: 0;
-    top: 0;
+    margin-left: -50px;
 }
 
 div.content{
@@ -244,24 +241,128 @@ div.inputtime input{
     background-color: #f9f9f9;
     text-align: center;
 }
-div.variables{
+div.dimensions{
+    position: relative;
+    margin-left: 125px;
+    height: 400px;
+    width: 200px;
+}
+
+.photo2{
+    height:28px;
+    width: 7px;
+    position: absolute;
+}
+h3{
+    font-weight: bold;
+    position: relative;
+    display: inline;
+}
+.content ul li{
+    position: relative;
+    margin-top: 0px;
+    margin-left: 20px;
+    display: inline-block;
+    height: 65px;
+    width: 100%;
+}
+h6{
+    color: gray;
+    position: relative;
+    margin: 10px 0;
+    display: inline-block;
+}
+.dimensions a{
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid red;
+    position: relative;
+    padding: 1px 10px;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: black;
+}
+div.magnitude {
     position: relative;
     margin-left: 125px;
     height: 400px;
     width: 350px;
-    margin-top: 20px;
+}
+.magnitude a{
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid pink;
+    position: relative;
+    padding: 1px 10px;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: black;
 }
 div.choosedvariables{
     position: relative;
     margin-left: 500px;
-    margin-top: -820px;
+    margin-top: -832px;
     height: 800px;
     width: 540px;
 }
-div.rightsidebar{
+
+div.subtype{
     width: 135px;
     margin-left: 1100px;
     position: relative;
-    height: 800px;
-    margin-top:-800px;
+    height: 400px;
+    margin-top:-815px;
+}
+.subtype a{
+    text-decoration: none;
+    color: gray;
+    font-size: 12px;
+    display: inline-block;
+    width: 35px;
+}
+.photo3{
+    height: 20px;
+    width: 20px;
+}
+div.variablestab{
+    width: 135px;
+    margin-left: 1100px;
+    position: relative;
+    height: 200px;
+    margin-top:20px;
+}
+.variablestab a{
+    text-decoration: none;
+    color: gray;
+    font-size: 15px;
+}
+.variablestab ul li{
+    height: 30px;
+}
+.tools{
+    width: 135px;
+    height: 100px;
+    position: relative;
+    margin-left: 1100px;
+}
+.tools a{
+    background-color: red;
+    color: white;
+    display: inline-block;
+    width: 110px;
+    text-align: center;
+    font-weight: 100;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 1px 10px;
+    margin-bottom: 5px;
+    position: relative;
+    text-decoration: none;
+}
+a:hover{
+    color: #fb3165;
 }

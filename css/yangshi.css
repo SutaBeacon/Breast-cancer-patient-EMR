@@ -61,8 +61,7 @@ div.iconsearch:after{
     background-color: red;
 }
 
-div.topnav p1{
-    z-index: 300;
+div.topnav .title{
     font-size: 20px;
     position: absolute;
     margin-left: 100px;
@@ -72,8 +71,7 @@ div.topnav p1{
     font-weight: bold;
 }
 
-div.topnav p2{
-    z-index: 300;
+div.topnav .version{
     font-size: 6px;
     position: absolute;
     margin-left: 130px;
@@ -186,25 +184,25 @@ div.inputtime{
     width: 80%;
     display: table;
 }
-div.inputtime p3{
+div.inputtime .reminder{
     font-size: 20px;
     letter-spacing: 1px;
     color: red;
     display: table-cell;
     width: 154px;
 }
-div.inputtime p4{
+div.inputtime .time{
     display: table-cell;
     width: 30px;
     text-align: center;
 }
-div.inputtime p5{
+div.inputtime .conjunction{
     display: table-cell;
     width: 62px;
     font-size: 20px;
     text-align: center;
 }
-div.inputtime p6{
+div.inputtime .result{
     display: table-cell;
     width: 124px;
     text-align: right;

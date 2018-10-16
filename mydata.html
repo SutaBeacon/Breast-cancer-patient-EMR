@@ -9,233 +9,226 @@
 </head>
 <body>
     <div class="topnav">
-        <div class="outring">
-          <div class="inring"></div>
+        <div class="iconleft">
+            <div class="outring">
+                <div class="inring"></div>
+            </div>
+            <p class="title">两颗桃</p>
+            <p class="version">医生版</p>
         </div>
-        <p class="title">两颗桃</p>
-        <p class="version">医生版</p>
         <div class="searchbar">
             <div class="iconsearch"></div>
-            <input type="text" class="search" name="content" value="快速搜索：查找患者/病例/医生">
+            <input type="text" class="search" name="content" placeholder="快速搜索：查找患者/病例/医生"/>
         </div>
-        <div class="iconmail"></div>
-        <div class="account">
-            <img src="./images/doctor.png" width="100%" height="100%"/>
+        <div class="iconright">
+            <div class="iconmail"></div>
+            <div class="account">
+                <img src="./images/doctor.png" width="100%" height="100%"/>
+            </div>
         </div>
     </div>
-    <div class="leftnav">
-        <ul>
-            <li>
-                <a href="#jiezhen" >
-                    <img src="./images/接诊.png"/>
-                    <br/>接诊
-                </a>
-            </li>
-            <li>
-                <a href="#huizhen">
-                    <img src="./images/会诊.png"/>
-                    <br/>会诊
-                </a>
-            </li>
-            <li>
-                <img class="photo1" src="./images/界面切换符.png"/>
-                <a href="#mydata">
-                    <img src="./images/数据2.png"/>
-                    <br/>我的数据
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="content">
-        <div class="inputtime">
-            <p class="reminder">输入筛选时间</p3>
-            <div class="inputyear">
-                <input type="text" name="startyear"/>
-            </div>
-            <p class="time">年</p>
-            <div class="inputdaymon">
-                <input type="text" name="startmonth"/>
-            </div>
-            <p class="time">月</p4>
-            <div class="inputdaymon">
-                <input type="text" name="startday"/>
-            </div>
-            <p class="time">日</p>
-            <p class="conjunction">至</p>
-            <div class="inputyear">
-                <input type="text" name="endyear"/>
-            </div>
-            <p class="time">年</p>
-            <div class="inputdaymon">
-                <input type="text" name="endmonth"/>
-            </div>
-            <p class="time">月</p>
-            <div class="inputdaymon">
-                <input type="text" name="endday"/>
-            </div>
-            <p class="time">日</p>
-            <p class="result">范围选择</p>
-            <div class="inputrange"></div>
-        </div>
-        <div class="dimensions">
-            <img class="photo2" src="./images/界面切换符.png"/>
+    <div class="main">
+        <div class="leftnav">
             <ul>
                 <li>
-                    <h3>选择维度</h3>
+                    <a href="#jiezhen" >
+                        <img src="./images/接诊.png"/>
+                        <p>接诊</p>
+                    </a>
                 </li>
                 <li>
-                    <h6>预录信息</h6>
-                    <br/>
-                    <a href="#gender">性别</a>
-                    <a href="#medicalhistory">病史</a>
+                    <a href="#huizhen">
+                        <img src="./images/会诊.png"/>
+                        <p>会诊</p>
+                    </a>
                 </li>
                 <li>
-                    <h6>表征</h6>
-                    <br/>
-                    <a href="#self-inspection">自检表征</a>
-                    <a href="#tractile-chaeacterization">触检表征</a>
-                </li>
-                <li>
-                    <h6>肿瘤学特征</h6>
-                    <br/>
-                    <a href="#">肿瘤性质</a>
-                    <a href="#">是否转移</a>
-                    <a href="#">初检分型</a>
-                </li>
-                <li>
-                    <h6>内科</h6>
-                    <br/>
-                    <a href="#">化疗用药</a>
-                    <a href="#">不良反应</a>
+                    <img class="photo1" src="./images/界面切换符.png"/>
+                    <a href="#mydata">
+                        <img src="./images/数据2.png"/>
+                        <p>我的数据</p>
+                    </a>
                 </li>
             </ul>
         </div>
-        <div class="magnitude">
-            <img class="photo2" src="./images/界面切换符2.png"/>
-            <ul>
-                <li>
-                    <h3>选择量度</h3>
-                </li>
-                <li>
-                    <h6>预录信息</h6>
-                    <br/>
-                    <a href="#">年龄</a>
-                </li>
-                <li>
-                    <h6>表征</h6>
-                    <br/>
-                    <a href="#">自检时间</a>
-                </li>
-                <li>
-                    <h6>肿瘤学特征</h6>
-                    <br/>
-                    <a href="#">肿瘤半径</a>
-                    <a href="#">肿瘤质地</a>
-                    <a href="#">肿瘤平滑度</a>
-                    <br/>
-                    <a href="#">肿瘤周长</a>
-                    <a href="#">肿瘤面积</a>
-                    <a href="#">肿瘤致密度</a>
-                    <a href="#">肿瘤凹陷度</a>
-                    <a href="#">凹陷点数</a>
-                    <a href="#">对称性</a>
-                </li>
-                <li>
-                    <h6>内科</h6>
-                    <br/>
-                    <a href="#">化疗时长</a>
-                    <a href="#">不良反应的出现时间</a>
-                </li>      
-            </ul>
-           
-        </div>
-        <div class="choosedvariables">
-            <img class="photo2" src="./images/界面切换符2.png"/>
-            <ul>
-                <li>
+        <div class="content">
+            <div class="inputtime">
+                <p class="reminder">输入筛选时间</p3>
+                <div class="starttime">
+                    <div class="inputyear">
+                        <input type="text" name="startyear"/>
+                    </div>
+                    <p class="time">年</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="startmonth"/>
+                    </div>
+                    <p class="time">月</p4>
+                    <div class="inputdaymon">
+                        <input type="text" name="startday"/>
+                    </div>
+                    <p class="time">日</p>
+                </div>
+                <p class="conjunction">至</p>
+                <div class="endtime">
+                    <div class="inputyear">
+                        <input type="text" name="endyear"/>
+                    </div>
+                    <p class="time">年</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="endmonth"/>
+                    </div>
+                    <p class="time">月</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="endday"/>
+                    </div>
+                    <p class="time">日</p>
+                </div>
+                <p class="result">范围选择</p>
+                <div class="inputrange"></div>
+            </div>
+            <div class="maincontent">
+                <div class="variables">
+                    <div class="dimensions">
+                        <img class="photo2" src="./images/界面切换符.png"/>
+                        <h3>选择维度</h3>
+                        <ul>
+                            <li>
+                                <h6>预录信息</h6>
+                                <a href="#gender">性别</a>
+                                <a href="#medicalhistory">病史</a>
+                            </li>
+                            <li>
+                                <h6>表征</h6>
+                                <a href="#self-inspection">自检表征</a>
+                                <a href="#tractile-chaeacterization">触检表征</a>
+                            </li>
+                            <li>
+                                <h6>肿瘤学特征</h6>
+                                <a href="#">肿瘤性质</a>
+                                <a href="#">是否转移</a>
+                                <a href="#">初检分型</a>
+                            </li>
+                            <li>
+                                <h6>内科</h6>
+                                <a href="#">化疗用药</a>
+                                <a href="#">不良反应</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="magnitude">
+                        <img class="photo2" src="./images/界面切换符2.png"/>
+                        <h3>选择量度</h3>
+                        <ul>
+                            <li>
+                                <h6>预录信息</h6>
+                                <a href="#">年龄</a>
+                            </li>
+                            <li>
+                                <h6>表征</h6>
+                                <a href="#">自检时间</a>
+                            </li>
+                            <li>
+                                <h6>肿瘤学特征</h6>
+                                <a href="#">肿瘤半径</a>
+                                <a href="#">肿瘤质地</a>
+                                <a href="#">肿瘤平滑度</a>
+                                <a href="#">肿瘤周长</a>
+                                <a href="#">肿瘤面积</a>
+                                <a href="#">肿瘤致密度</a>
+                                <a href="#">肿瘤凹陷度</a>
+                                <a href="#">凹陷点数</a>
+                                <a href="#">对称性</a>
+                            </li>
+                            <li>
+                                <h6>内科</h6>
+                                <a href="#">化疗时长</a>
+                                <a href="#">不良反应的出现时间</a>
+                            </li>      
+                        </ul>
+                        </div>
+                    </div>
+                <div class="choosedvariables">
+                    <img class="photo2" src="./images/界面切换符2.png"/>
                     <h3>已添加变量</h3>
-                </li>
-            </ul>
-
-        </div>
-        <div class="subtype">
-            <img class="photo2" src="./images/界面切换符.png"/>
-            <ul>
-                <li>
-                    <h3>图表类型<h3>
-                </li>
-                <li>
-                    <a href="#barchart">
-                        <img class="photo3" src="./images/条形.png"/>
-                        <br/>条形
-                    </a>
-                    <a href="#pie">
-                        <img class="photo3" src="./images/饼图.png"/>
-                        <br/>饼图
-                    </a>
-                </li>
-                <li>
-                    <a href="#areagraph">
-                        <img class="photo3" src="./images/面积.png"/>
-                        <br/>面积
-                    </a>
-                    <a href="#linechart">
-                        <img class="photo3" src="./images/折线.png"/>
-                        <br/>折线
-                    </a>
-                </li>
-                <li>
-                    <a href="#realppoint">
-                        <img class="photo3" src="./images/实点.png"/>
-                        <br/>实点
-                    </a>
-                    <a href="#ignore">
-                        <img class="photo3" src="./images/空点.png"/>
-                        <br/>空点
-                    </a>
-                </li>
-                <li>
-                    <a href="#proportion">
-                        <img class="photo3" src="./images/比重.png"/>
-                        <br/>比重
-                    </a>
-                    <a href="#gunter">
-                        <img class="photo3" src="./images/甘特.png"/>
-                        <br/>甘特
-                    </a>
-                </li>
-                <li>
-                    <a href="#median">
-                        <img class="photo3" src="./images/中位.png"/>
-                        <br/>中位
-                    </a>
-                    <a href="#fixedpoint">
-                        <img class="photo3" src="./images/定点.png"/>
-                        <br/>定点
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="variablestab">
-            <img class="photo2" src="./images/界面切换符.png"/>
-            <ul>
-                <li>
-                    <h3>变量标记</h3>
-                </li>
-                <li>
-                    <a href="#color">颜色</a>
-                </li>
-                <li>
-                    <a href="#word">文字</a>
-                </li>
-                <li>
-                    <a href="#size">大小</a>
-                </li>
-            </ul>
-        </div>
-        <div class="tools">
-            <a href="#exportexcel">导出Excel表单</a>
-            <a href="#exportvisualdiagram">导出可视化图表</a>
+                </div>
+                <div class="rightsidebar">
+                    <div class="subtype">
+                        <img class="photo2" src="./images/界面切换符.png"/>
+                        <h3>图表类型<h3></h3>
+                        <ul>
+                            <li>
+                                <a href="#barchart">
+                                    <img class="photo3" src="./images/条形.png"/>
+                                    <p>条形</p>
+                                </a>
+                                <a href="#pie">
+                                    <img class="photo3" src="./images/饼图.png"/>
+                                    <p>饼图</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#areagraph">
+                                    <img class="photo3" src="./images/面积.png"/>
+                                    <p>面积</p>
+                                </a>
+                                <a href="#linechart">
+                                    <img class="photo3" src="./images/折线.png"/>
+                                    <p>折线</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#realppoint">
+                                    <img class="photo3" src="./images/实点.png"/>
+                                    <p>实点</p>
+                                </a>
+                                <a href="#ignore">
+                                    <img class="photo3" src="./images/空点.png"/>
+                                    <p>空点</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#proportion">
+                                    <img class="photo3" src="./images/比重.png"/>
+                                    <p>比重</p>
+                                </a>
+                                <a href="#gunter">
+                                    <img class="photo3" src="./images/甘特.png"/>
+                                    <p>甘特</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#median">
+                                    <img class="photo3" src="./images/中位.png"/>
+                                    <p>中位</p>
+                                </a>
+                                <a href="#fixedpoint">
+                                    <img class="photo3" src="./images/定点.png"/>
+                                    <p>定点</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="variablestab">
+                        <img class="photo2" src="./images/界面切换符.png"/>
+                        <h3>变量标记</h3>
+                        <ul>
+                            <li>
+                                <a href="#color">颜色</a>
+                            </li>
+                            <li>
+                                <a href="#word">文字</a>
+                            </li>
+                            <li>
+                                <a href="#size">大小</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tools">
+                        <a href="#exportexcel">导出Excel表单</a>
+                        <a href="#exportvisualdiagram">导出可视化图表</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

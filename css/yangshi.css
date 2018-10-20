@@ -10,12 +10,13 @@ div.topnav{
     opacity: 0.8;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .iconleft{
     display: flex;
     align-items: center;
     order: 1;
+    margin-left: 50px;
 }
 div.outring{
     width: 32px;
@@ -56,13 +57,13 @@ div.searchbar{
     order: 2;
     display: flex;
     align-items: center;
-    width: 650px;
+    width: 670px;
 }
 input.search{
     border-width:0;
     font-size: 20px;
     margin-left: 12px;
-    padding: 6px 0;
+    padding: 8px 0;
     width: 500px;
     font-weight: 100;
     outline: none;
@@ -89,6 +90,7 @@ div.iconsearch:after{
     display: flex;
     align-items: center;
     order: 3;
+    margin-right: 50px;
 }
 div.iconmail{
     width: 0;
@@ -243,6 +245,7 @@ div.inputtime input{
 }
 .variables{
     order: 1;
+    margin-left: 60px;
 }
 div.dimensions{
     height: 400px;
@@ -298,9 +301,14 @@ div.magnitude {
     color: black;
 }
 div.choosedvariables{
-    height: 800px;
     width: 540px;
     order: 2;
+}
+.choosedvariables .selectedvariables{
+    height: 200px;
+}
+#chart{
+    height: 600px;
 }
 .rightsidebar{
     order: 3;

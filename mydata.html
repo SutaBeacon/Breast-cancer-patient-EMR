@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>我的数据</title>
+    <script type="text/javascript" src="./d3/d3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/yangshi.css">
 </head>
 <body>
@@ -18,7 +19,7 @@
         </div>
         <div class="searchbar">
             <div class="iconsearch"></div>
-            <input type="text" class="search" name="content" placeholder="快速搜索：查找患者/病例/医生"/>
+            <input type="text" class="search" name="content" placeholder="快速搜索：查找患者/病历/医生"/>
         </div>
         <div class="iconright">
             <div class="iconmail"></div>
@@ -150,6 +151,8 @@
                 <div class="choosedvariables">
                     <img class="photo2" src="./images/界面切换符2.png"/>
                     <h3>已添加变量</h3>
+                    <div class="selectedvariables"></div>
+                    <div id="chart"></div>
                 </div>
                 <div class="rightsidebar">
                     <div class="subtype">
@@ -231,5 +234,6 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>

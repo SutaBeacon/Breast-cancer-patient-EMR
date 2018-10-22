@@ -301,7 +301,7 @@ div.magnitude {
     color: black;
 }
 div.choosedvariables{
-    width: 540px;
+    width: 700px;
     order: 2;
 }
 .choosedvariables .selectedvariables{
@@ -362,4 +362,34 @@ div.variablestab{
 }
 a:hover{
     color: #fb3165;
+}
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+.focus circle {
+    fill: none;
+    stroke: steelblue;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: lightgrey;
+    shape-rendering: crispEdges;
+}
+.grid .tick {
+    stroke: lightgrey;
+    stroke-opacity: 0.1;
+    shape-rendering: crispEdges;
+  }
+.grid path {
+    stroke-width: 0;
+}
+.column{
+    fill:steelblue;
 }

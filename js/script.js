@@ -5,16 +5,17 @@ d3.csv("./dataset.csv").then(function(data){
   tumourevenness=[];
   tumourarea = [];
   for(var i=0;i<data.length;i++){
-    tumourid.push(+data[i]["ID "]);
+    tumourid.push(data[i]["ID "]);
     tumourproperty.push(data[i]["肿瘤性质"]);
     tumourgirth.push(+data[i]["肿瘤周长"]);
     tumourevenness.push(+data[i]["肿瘤平滑度"]);
     tumourarea.push(+data[i]["肿瘤面积"]);
   }
-  //xAxisWidth = d3.max(tumourgirth);
+  dataset = data;
+  //xAxisWidth = d3.max(tumourevenness);
   xAxisWidth = d3.max(tumourid);
-  yAxisWidth = d3.max(tumourarea);
-  //dataset = arraymerging(tumourgirth,tumourarea);
+  //yAxisWidth = d3.max(tumourarea);
+  yAxisWidth = d3.max(tumourevenness);
   //drawscatter();
   drawcolumn();
 });
@@ -29,13 +30,10 @@ function drawcolumn(){
       .attr("width",width)
       .attr("height",height)
       .attr("overflow","visible");
-  var xz=d3.range(569);
-  console.log(xz);
-  console.log(tumourid);
+
   var xScale = d3.scaleBand()
       .domain(tumourid)
-      .rangeRound([2*padding,width-padding*2])
-      .padding(8);
+      .rangeRound([2*padding,width-padding*2]);
 
   var yScale = d3.scaleLinear()
       .domain([0,1.1*yAxisWidth])
@@ -47,18 +45,27 @@ function drawcolumn(){
       .tickValues(xScale.domain().filter(function(d,i){return !(i%10)}));
       
   var yAxis = d3.axisLeft(yScale).tickSize(0);
-  
+  /*
+  var tip =d3.tip()
+      .attr("class","d3-tip")
+      .offset([-10,0])
+      .html(function(d){
+          return "<strong>ID:</strong><span " + d["ID "]+"</span>";
+      })
+
+  svg.call(tip);*/
+
   function make_y_axis(){
     return d3.axisLeft(yScale);
   }
 
+
   svg.append("g")
-  .attr("class","grid")
-  .call(make_y_axis()
-    .tickSize(-width+4*padding,0,0)
-    .tickFormat("")
-  )
-  .attr("transform","translate("+(2*padding)+",0)");
+      .attr("class","grid")
+      .call(make_y_axis()
+       .tickSize(-width+4*padding,0,0)
+       .tickFormat(""))
+      .attr("transform","translate("+(2*padding)+",0)");
 
   svg.append("g")
       .attr("class","axis")
@@ -83,26 +90,58 @@ function drawcolumn(){
       .attr("font-size",10)
       .attr("x",0)
       .attr("y",padding)
-      .text("肿瘤面积");
+      .text("肿瘤平滑度");
   
   var rectpadding = 1;
 
   var rects = svg.selectAll("rect")
-      .data(tumourarea)
+      .data(dataset)
       .enter()
       .append("rect")
       .attr("fill","red")
-      .attr("transform","translate("+padding+","+padding+")")
-      .attr("x",function(d,i){
-        return xScale(i)+rectpadding/2;
+      .attr("transform","translate("+(-padding)+","+padding+")")
+      .attr("x",function(d){
+        return xScale(d["ID "])+rectpadding/2;
       })
       .attr("y",function(d){
-        return yScale(d);
+        return yScale(d["肿瘤平滑度"]);
       })
-      .attr("width",rectpadding)
+      .attr("width",xScale.bandwidth())
       .attr("height",function(d){
-        return height-yScale(d)-2*padding;
-      });
+        return height-yScale(d["肿瘤平滑度"])-2*padding;
+      })
+      .on("mouseover",function(d){
+        d3.select(this)
+          .attr("fill","black");
+        var xPosition = parseFloat(d3.select(this).attr("x"))+xScale.bandwidth()/2;
+        var yPosition = parseFloat(d3.select(this).attr("y"))+14;
+        /*
+        svg.append("text")
+          .attr("id","tooltip")
+          .attr("x",xPosition)
+          .attr("y",yPosition)
+          .attr("text-anchor","middle")
+          .attr("font-family","sans-serif")
+          .attr("font-size","11px")
+          .attr("fill","black")
+          .text(d["ID "])*/
+          d3.select("#tooltip")
+            .style("left",xPosition+"px")
+            .style("top",yPosition+"px")
+            .select("#value")
+            .text(d["ID "]);
+      })
+      .on("mouseout",function(){
+        d3.select(this)
+          .attr("fill","red");
+       // d3.select("#tooltip").remove();
+        d3.select("#tooltip").classed("hidden",false);
+    })
+      /*
+      .append("title")
+      .text(function(d){
+          return d["ID "];//why title didn't show in bar chart
+      });*/
 }
 
 
@@ -129,10 +168,10 @@ function drawscatter(){
       .append("circle")
       .attr("fill","red")
       .attr("cx",function(d){
-        return padding+xScale(d[0]);
+        return padding+xScale(d["肿瘤平滑度"]);
       })
       .attr("cy",function(d){
-        return yScale(d[1])+padding;
+        return yScale(d["肿瘤面积"])+padding;
       })
       .attr("r",5);
 
@@ -182,21 +221,4 @@ function drawscatter(){
       .attr("x",0)
       .attr("y",padding)
       .text("肿瘤面积");
-}
-function arraymerging(arr1,arr2){
-  var result=new Array();
-  for(var i=0;i<arr1.length;i++){
-    result.push([arr1[i],arr2[i]]);
-  }
-  return result;
-}
-
-function compare(value1,value2){
-  if(value1>value2){
-    return 1;
-  }else if(value1<value2){
-    return -1;
-  }else{
-    return 0;
-  }
 }

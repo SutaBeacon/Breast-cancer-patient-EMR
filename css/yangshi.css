@@ -159,7 +159,7 @@ ul{
 
 .leftnav ul li .photo1{
     position: absolute;
-    margin-left: -50px;
+    margin-left: -70px;
 }
 
 div.content{
@@ -272,7 +272,7 @@ h6{
     margin: 10px 0;
     display: block;
 }
-.dimensions a{
+.dimensions p{
     display: inline-block;
     border-radius: 10px;
     border: 1px solid red;
@@ -288,7 +288,7 @@ div.magnitude {
     height: 400px;
     width: 350px;
 }
-.magnitude a{
+.magnitude p{
     display: inline-block;
     border-radius: 10px;
     border: 1px solid pink;
@@ -304,11 +304,14 @@ div.choosedvariables{
     width: 700px;
     order: 2;
 }
-.choosedvariables .selectedvariables{
+#selectedvariables{
     height: 200px;
+    position: relative;
+    margin-left: 20px;
 }
 #chart{
     height: 600px;
+    position: absolute;
 }
 .rightsidebar{
     order: 3;
@@ -318,12 +321,21 @@ div.subtype{
     width: 135px;
     height: 400px;
 }
-.subtype a{
-    text-decoration: none;
+.subtype table{
+    margin-left: 5px;
+    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 15px 0px;
+}
+.subtype table th{
+    padding: 1px;
+}
+.subtype p{
     color: gray;
-    font-size: 12px;
-    display: inline-block;
-    width: 35px;
+    font-size: 10px;
+    margin-bottom: 8px;
+    margin-top: 0px;
+    font-weight: normal;
 }
 .photo3{
     height: 20px;
@@ -334,8 +346,7 @@ div.variablestab{
     height: 200px;
     margin-top:20px;
 }
-.variablestab a{
-    text-decoration: none;
+.variablestab p{
     color: gray;
     font-size: 15px;
 }
@@ -346,7 +357,7 @@ div.variablestab{
     width: 135px;
     height: 100px;
 }
-.tools a{
+.tools p{
     background-color: red;
     color: white;
     display: inline-block;
@@ -359,9 +370,6 @@ div.variablestab{
     margin-bottom: 5px;
     position: relative;
     text-decoration: none;
-}
-a:hover{
-    color: #fb3165;
 }
 .line {
     fill: none;
@@ -395,7 +403,7 @@ a:hover{
 }
 #tooltip{
     position: absolute;
-    width: 200px;
+    width: auto;
     height: auto;
     padding: 10px;
     background-color: white;
@@ -411,4 +419,28 @@ a:hover{
     font-family: sans-serif;
     font-size: 16px;
     line-height: 20px;
+}
+#tooltip p strong{
+    display: inline-block;
+    width: 100px;
+}
+.axisdimension{
+    display: inline-block;
+    border-radius: 10px;
+    background-color: red;
+    position: absolute;
+    padding: 1px 10px;
+    font-size: 14px;
+    margin-top: 15px;
+    color: black;
+}
+.axismagnitude{
+    display: inline-block;
+    border-radius: 10px;
+    background-color: pink;
+    position: absolute;
+    padding: 1px 10px;
+    font-size: 14px;
+    margin-top: 50px;
+    color: black;
 }

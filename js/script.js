@@ -1,76 +1,391 @@
-var x = document.getElementById("Dimension");
+var container = document.getElementById("selectedvariables");
+/*
+var x = document.getElementById("");
 x.addEventListener("click",function(e){
   var target = e.target;
   if(target.id.toLowerCase()==="tumourid"){
       if(document.getElementById("xaxis") == null){
-        var container =document.getElementById("selectedvariables");
         var div = document.createElement("div");
         div.setAttribute("id","xaxis");
         div.className += "axisdimension";
-        div.innerText = "ID";
+        div.innerText = "ID编号";
         container.appendChild(div);  
       }
   }
 },false);
 x.addEventListener("dblclick",function(e){
   var target =e.target;
+  var element = document.getElementById("xaxis");
   if(target.id.toLowerCase()==="tumourid"){
-      var container =document.getElementById("selectedvariables");
-      var element = document.getElementById("xaxis");
-      if(element !=null){
+      if((element !=null)&&(element.innerText == "ID编号")){
           container.removeChild(element);
       }
   }
 },false);
-var y =document.getElementById("Magnitude");
-y.addEventListener("click",function(e){
+x.addEventListener("mouseover",function(e){
   var target = e.target;
-  var container = document.getElementById("selectedvariables");
+  if(target,id.toLowerCase() == "tumourid"){
+    var 
+  }
+},false)*/
+var variables =document.getElementById("variable");
+variables.addEventListener("click",function(e){
+  var target = e.target;
   var div = document.createElement("div");
+  var elementx = document.getElementById("xaxis");
+  var elementy = document.getElementById("yaxis");
   switch(target.id.toLowerCase()){
-      case "tumourevenness":
-        if(document.getElementById("yaxis") == null){
-            div.setAttribute("id","yaxis");
-            
-            break;
-        }
-        if(document.getElementById("xaxis") == null){
-
-        }
+    case "tumourid":
+      if(elementx == null){
+        var div = document.createElement("div");
+        div.setAttribute("id","xaxis");
+        div.className += "axisdimension";
+        div.innerText = "ID编号";
+        container.appendChild(div);  
+      }
+      break;
+    case "tumourevenness":
+      div.innerText = "肿瘤平滑度";
+      if((elementx == null)&&(elementy ==null)){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
         break;
-      case "tumourgirth":
-        
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤平滑度")){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
         break;
-      case "tumourarea":
-        
+      }else if((elementx == null)&&(elementy.innerText != "肿瘤平滑度")){
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
+        container.appendChild(div);
         break;
+      }
+    case "tumourgirth":
+      div.innerText = "肿瘤周长";
+      if((elementx == null)&&(elementy ==null)){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
+        break;
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤周长")){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
+        break;
+      }else if((elementx == null)&&(elementy.innerText != "肿瘤周长")){
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
+        container.appendChild(div);
+        break;
+      }
+    case "tumourarea":
+      div.innerText = "肿瘤面积";
+      if((elementx == null)&&(elementy ==null)){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
+        break;
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤面积")){
+        div.setAttribute("id","yaxis");
+        div.className +="axismagnitude";
+        container.appendChild(div);
+        break;
+      }else if((elementx == null)&&(elementy.innerText != "肿瘤面积")){
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
+        container.appendChild(div);
+        break;
+      }
   }
 },false);
+variables.addEventListener("dblclick",function(e){
+  var target = e.target;
+  var elementx = document.getElementById("xaxis");
+  var elementy = document.getElementById("yaxis");
+  switch(target.id.toLowerCase()){
+    case "tumourid":
+      if((elementx !=null)&&(elementx.innerText == "ID编号")){
+        container.removeChild(elementx);
+      }
+      break;
+    case "tumourevenness":
+      if((elementy !=null)&&(elementy.innerText == "肿瘤平滑度")){
+        container.removeChild(elementy);
+      }
+      if((elementx !=null)&&(elementx.innerText == "肿瘤平滑度")){
+        container.removeChild(elementx);
+      }
+      break;
+    case "tumourgirth":
+      if((elementy !=null)&&(elementy.innerText == "肿瘤周长")){
+        container.removeChild(elementy);
+      }
+      if((elementx != null)&&(elementx.innerText == "肿瘤周长")){
+        container.removeChild(elementx);
+      }
+      break;
+    case "tumourarea":
+      if((elementy != null)&&(elementy.innerText == "肿瘤面积")){
+        container.removeChild(elementy);
+      }
+      if((elementx !=null)&&(elementx.innerText == "肿瘤面积")){
+        container.removeChild(elementx);
+      }
+      break;
+  }
+},false);
+/*
+variables.addEventListener("mouseover",function(e){
+  var target = e.target;
+  switch(target.id.toLowerCase()){
+    case "tumourid":
+    case "tumourevenness":
+    case "tumourgirth":
+    case "tumourarea":
+      target.style.color="#fb3165";
+      break;
+  }
+},false);
+variables.addEventListener("mouseout",function(e){
+  var target = e.target;
+  switch(target.id.toLowerCase()){
+    case "tumourid":
+    case "tumourevenness":
+    case "tumourgirth":
+    case "tumourarea":
+      target.style.color="black";
+      break;
+  }
+},false);*/
+/*
+var setvariables = document.getElementById("variable");
+var itemsvariables = setvariables.getElementsByTagName("li");
+for(var i=0;i<itemsvariables.length;i++){
+  itemsvariables[i].
+}*/
 d3.csv("./dataset.csv").then(function(data){
+  /*
   tumourid=[];
   tumourproperty=[];
   tumourgirth=[];
   tumourevenness=[];
   tumourarea = [];
-  data.sort(compare);
+  //data.sort(compare);
   for(var i=0;i<data.length;i++){
     tumourid.push(data[i]["ID "]);
     tumourproperty.push(data[i]["肿瘤性质"]);
     tumourgirth.push(+data[i]["肿瘤周长"]);
     tumourevenness.push(+data[i]["肿瘤平滑度"]);
     tumourarea.push(+data[i]["肿瘤面积"]);
-  }
+  }*/
   dataset = data;
   //xAxisWidth = d3.max(tumourevenness);
-  yAxisWidth = d3.max(tumourarea);
+  //yAxisWidth = d3.max(tumourarea);
   //yAxisWidth = d3.max(tumourevenness);
   //drawscatter();
-  drawcolumn();
+ // drawcolumn();
   //drawpie();
 });
+function readobjectarray(){
+  tumourid=[];
+  tumourproperty=[];
+  tumourgirth=[];
+  tumourevenness=[];
+  tumourarea = [];
+  for(var i=0;i<dataset.length;i++){
+    tumourid.push(dataset[i]["ID "]);
+    tumourproperty.push(dataset[i]["肿瘤性质"]);
+    tumourgirth.push(+dataset[i]["肿瘤周长"]);
+    tumourevenness.push(+dataset[i]["肿瘤平滑度"]);
+    tumourarea.push(+dataset[i]["肿瘤面积"]);
+  }
+}
+var draw =document.getElementById("chartstyle");
+draw.addEventListener("click",function(e){
+  var target = e.target;
+  var elementx = document.getElementById("xaxis");
+  var elementy = document.getElementById("yaxis");
+  /* var p = draw.getElementsByTagName("p");
+  var images =draw.getElementsByTagName("img");
+ 
+  for(var i=0;i<p.length;i++){
+    console.log(p[i].style.color);
+    if(p[i].style.color == "rgb(251, 49, 101)"){
+      break;
+      console.log(i);
+    }
+  }
+  console.log(i);
+  if(i != p.length){
+    p[i-1].style.color = "black";
+    switch(i){
+      case 1:
+        images[0].src = "./images/条形.png";
+        break;
+      case 2:
+        images[1].src = "./images/饼图.png";
+        break;
+      case 3:
+        images[2].src = "./images/面积.png";
+        break;
+      case 4:
+        images[3].src = "./images/折线.png";
+        break;
+      case 5:
+        images[4].src = "./images/实点.png";
+        break;
+      case 6:
+        images[5].src = "./images/空点.png";
+        break;
+      case 7:
+        images[6].src = "./images/比重.png";
+        break;
+      case 8:
+        images[7].src = "./images/甘特.png";
+        break;
+      case 9:
+        images[8].src = "./images/中位.png";
+        break;
+      case 10:
+        images[9].src = "./images/定点.png";
+        break;
+    }
+  }*/
+  switch(target.id.toLowerCase()){
+    case "barchart":
+      if((elementx == null)||(elementy == null)){
+        alert("请选择完整的维度量度");
+      }else if(elementx.innerText !== "ID编号"){
+        alert("所选择的维度不适合条形图，请选择其他图表");
+      }else{
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        switch(elementy.innerText){
+          case "肿瘤平滑度":
+            dataset.sort(compare("肿瘤平滑度"));
+            readobjectarray();
+            var maxevenness = d3.max(tumourevenness);
+            drawcolumn(maxevenness,"肿瘤平滑度");
+            break;
+          case "肿瘤面积":
+            dataset.sort(compare("肿瘤面积"));
+            readobjectarray();
+            var maxarea = d3.max(tumourarea);
+            drawcolumn(maxarea,"肿瘤面积");
+            break;
+          case "肿瘤周长":
+            dataset.sort(compare("肿瘤周长"));
+            readobjectarray();
+            var maxgirth = d3.max(tumourgirth);
+            drawcolumn(maxgirth,"肿瘤周长");
+            break;
+        }
+      }
+      break;
+    case "scatter":
+      readobjectarray();
+      var maxarea = d3.max(tumourarea);
+      var maxgirth = d3.max(tumourgirth);
+      var maxevenness = d3.max(tumourevenness);
+      if((elementx == null)||(elementy == null)){
+        alert("请选择完整的维度量度");
+      }else if((elementx.innerText == "ID编号")||(elementy.innerText == "ID编号")){
+        alert("所选择的维度量度不适合散点图，请选择其他图表");
+      }else{
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        switch(elementx.innerText){
+          case "肿瘤平滑度":
+            switch(elementy.innerText){
+              case "肿瘤面积":
+                drawscatter(maxevenness,maxarea,"肿瘤平滑度","肿瘤面积");
+                break;
+              case "肿瘤周长":
+                drawscatter(maxevenness,maxgirth,"肿瘤平滑度","肿瘤周长");
+            }
+            break;
+          case "肿瘤面积":
+            switch(elementy.innerText){
+              case "肿瘤平滑度":
+                drawscatter(maxarea,maxevenness,"肿瘤面积","肿瘤平滑度");
+                break;
+              case "肿瘤周长":
+                drawscatter(maxarea,maxgirth,"肿瘤面积","肿瘤周长");
+                break;
+            }
+            break;
+          case "肿瘤周长":
+            switch(elementy.innerText){
+              case "肿瘤平滑度":
+                drawscatter(maxgirth,maxevenness,"肿瘤周长","肿瘤平滑度");
+                break;
+              case "肿瘤面积":
+                drawscatter(maxgirth,maxarea,"肿瘤周长","肿瘤面积");
+                break;
+            }
+            break;
+        }
+      }
+      break;
+  }
+},false);
+/*
+draw.addEventListener("mouseover",function(e){
+  var target = e.target;
+  switch(target.id.toLowerCase()){
+    case "barchart":
+      var images = target.getElementsByTagName("img");
+      images[0].src = "./images/条形2.png";
+      var p = target.getElementsByTagName("p");
+      p[0].style.color = "#fb3165";
+      //target.style.color = "#fb3165";
+      break;
+    case "scatter":
+      var images = target.getElementsByTagName("img");
+      images[0].src = "./images/实点2.png";
+      var p = target.getElementsByTagName("p");
+      p[0].style.color = "#fb3165";
+      break;
+  }
+},false);
+draw.addEventListener("mouseout",function(e){
+  var target = e.target;
+  if(sentry == 0){
+    switch(target.id.toLowerCase()){
+    case "barchart":
+      var images = target.getElementsByTagName("img");
+      images[0].src = "./images/条形.png";
+      var p = target.getElementsByTagName("p");
+      p[0].style.color = "black";
+      break;
+    case "scatter":
+      var images = target.getElementsByTagName("img");
+      images[0].src = "./images/实点.png";
+      var p = target.getElementsByTagName("p");
+      p[0].style.color = "black";
+      break;
+    }
+  }else{
+    sentry = 0;
+  }
+},false);
+
+var draw = document.getElementById("chart");
+draw.addEventListener("click",function(e){
+   var elementx =document.getElementById("xaxis");
+   var elementy =document.getElementById("yaxis");
+   if((elementx !=null)&&(elementy != null)){
+     console.log("draw");
+   }
+},false);*/
 
 
-function drawcolumn(){
+
+function drawcolumn(yAxisWidth,s){
   var width=700;
   var height=500;
   var padding=20;
@@ -121,27 +436,29 @@ function drawcolumn(){
       .call(xAxis)
       .selectAll("text")
       .attr("transform","rotate(90)"+"translate("+(1.4*padding)+",0)")
-
-  svg.append("text")
+  d3.select(".axis").append("text")
+      .attr("fill","black")
       .attr("text-anchor","end")
       .attr("font-size",10)
       .attr("x",width-padding)
-      .attr("y",height-2*padding)
+      .attr("y",padding)
       .text("肿瘤ID");
   
   svg.append("g")
       .attr("class","axis")
       .attr("transform","translate("+(2*padding)+",0)")
-      .call(yAxis);
-  svg.append("text")
-      .attr("text-anchor","start")
+      .call(yAxis)
+      .append("text")
+      .attr("text-anchor","middle")
       .attr("font-size",10)
+      .attr("fill","black")
       .attr("x",0)
       .attr("y",3*padding)
-      .text("肿瘤面积");
+      .text(s);
   
-
-  var rects = svg.selectAll("rect")
+  var rects = svg.append("g")
+      .attr("id","rects")
+      .selectAll("rect")
       .data(dataset)
       .enter()
       .append("rect")
@@ -150,11 +467,11 @@ function drawcolumn(){
         return xScale(d["ID "])+xScale.bandwidth()/2;
       })
       .attr("y",function(d){
-        return yScale(d["肿瘤面积"]);
+        return yScale(d[s]);
       })
       .attr("width",xScale.bandwidth())
       .attr("height",function(d){
-        return height-yScale(d["肿瘤面积"])-3*padding;
+        return height-yScale(d[s])-3*padding;
       })
       .on("mouseover",function(d){
         d3.select(this)
@@ -205,7 +522,7 @@ function drawcolumn(){
 }
 
 
-function drawscatter(){
+function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
   var width=500;
   var height=500;
   var padding=20;
@@ -228,10 +545,12 @@ function drawscatter(){
       .append("circle")
       .attr("fill","red")
       .attr("cx",function(d){
-        return xScale(d["肿瘤平滑度"]);
+        return xScale(d[xstring]);
+        console.log(xstring);
       })
       .attr("cy",function(d){
-        return yScale(d["肿瘤面积"]);
+        return yScale(d[ystring]);
+        console.log(ystring);
       })
       .attr("r",5)
       .on("mouseover",function(d){
@@ -298,7 +617,7 @@ function drawscatter(){
       .attr("font-size",10)
       .attr("x",width)
       .attr("y",height-padding/2)
-      .text("肿瘤周长");
+      .text(xstring);
   
   svg.append("g")
       .attr("class","axis")
@@ -309,7 +628,7 @@ function drawscatter(){
       .attr("font-size",10)
       .attr("x",0)
       .attr("y",padding)
-      .text("肿瘤平滑度");
+      .text(ystring);
 }
 /*
 function drawpie(){
@@ -360,12 +679,10 @@ function drawpie(){
             arcs.select("#tooltip").remove();
           });
 }*/
-function compare(a,b){
-    if((+a["肿瘤面积"])<(+b["肿瘤面积"])){
-        return -1;
-    }else if((+a["肿瘤面积"])>(+b["肿瘤面积"])){
-        return 1;
-    }else{
-        return 0;
+function compare(propertyname){
+    return function(a,b){
+      var value1 = +a[propertyname];
+      var value2 = +b[propertyname];
+      return value1-value2;
     }
 }

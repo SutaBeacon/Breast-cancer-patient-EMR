@@ -89,16 +89,16 @@
                 <div class="inputrange"></div>
             </div>
             <div class="maincontent">
-                <div class="variables">
+                <div class="variables" id="variable">
                     <div class="dimensions">
                         <img class="photo2" src="./images/界面切换符.png"/>
                         <h3>选择维度</h3>
-                        <ul id="Dimension">
+                        <ul>
                             <li>
                                 <h6>预录信息</h6>
                                 <p>性别</p>
                                 <p>病史</p>
-                                <p id="tumourId""">ID编号</p>
+                                <p id="tumourId">ID编号</p>
                             </li>
                             <li>
                                 <h6>表征</h6>
@@ -121,7 +121,7 @@
                     <div class="magnitude">
                         <img class="photo2" src="./images/界面切换符2.png"/>
                         <h3>选择量度</h3>
-                        <ul id="Magnitude">
+                        <ul>
                             <li>
                                 <h6>预录信息</h6>
                                 <p>年龄</p>
@@ -168,46 +168,26 @@
                     <div class="subtype">
                         <img class="photo2" src="./images/界面切换符.png"/>
                         <h3>图表类型<h3></h3>
-                        <table>
+                        <table id="chartstyle">
                             <tr>
-                                <th><img class="photo3" src="./images/条形.png"/></th>
-                                <th><img class="photo3" src="./images/饼图.png"/></th>
+                                <th id="barchart"><i class="imgbarchart"></i><p>条形</p></th>
+                                <th><i class="imgpie"></i><p>饼图</p></th>
                             </tr>
                             <tr>
-                                <th><p>条形</p></th>
-                                <th><p>饼图</p></th>
+                                <th><i class="imgarea"></i><p>面积</p></th>
+                                <th><i class="imgfoldline"></i><p>折线</p></th>
                             </tr>
                             <tr>
-                                <th><img class="photo3" src="./images/面积.png"/></th>
-                                <th><img class="photo3" src="./images/折线.png"/></th>
+                                <th id="scatter"><i class="imgsolid"></i><p>实点</p></th>
+                                <th><i class="imghollow"></i><p>空点</p></th>
                             </tr>
                             <tr>
-                                <th><p>面积</p></th>
-                                <th><p>折线</p></th>
+                                <th><i class="imgproportion"></i><p>比重</p></th>
+                                <th><i class="imggunter"></i><p>甘特</p></th>
                             </tr>
                             <tr>
-                                <th><img class="photo3" src="./images/实点.png"/></th>
-                                <th><img class="photo3" src="./images/空点.png"/></th>
-                            </tr>
-                            <tr>
-                                <th><p>实点</p></th>
-                                <th><p>空点</p></th>
-                            </tr>
-                            <tr>
-                                <th><img class="photo3" src="./images/比重.png"/></th>
-                                <th><img class="photo3" src="./images/甘特.png"/></th>
-                            </tr>
-                            <tr>
-                                <th><p>比重</p></th>
-                                <th><p>甘特</p></th>
-                            </tr>
-                            <tr>
-                                <th><img class="photo3" src="./images/中位.png"/></th>
-                                <th><img class="photo3" src="./images/定点.png"/></th>
-                            </tr>
-                            <tr>
-                                <th><p>中位</p></th>
-                                <th><p>定点</p></th>
+                                <th><i class="imgmedian"></i><p>中位</p></th>
+                                <th><i class="imgfixed"></i><p>定点</p></th>
                             </tr>
                         </table>
                     </div>

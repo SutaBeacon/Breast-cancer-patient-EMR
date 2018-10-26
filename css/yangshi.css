@@ -156,7 +156,9 @@ ul{
     text-decoration: none;
     color: black;
 }
-
+a:hover{
+    color: #fb3165;
+}
 .leftnav ul li .photo1{
     position: absolute;
     margin-left: -70px;
@@ -266,6 +268,9 @@ h3{
 .content ul{
     margin-left: 20px;
 }
+.variables ul li p:hover{
+    color:#fb3165;
+}
 h6{
     color: gray;
     position: relative;
@@ -329,17 +334,86 @@ div.subtype{
 }
 .subtype table th{
     padding: 1px;
-}
-.subtype p{
     color: gray;
+}
+.subtype table th .active{
+    color: #fb3165;
+}
+th i{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+th p{
     font-size: 10px;
     margin-bottom: 8px;
     margin-top: 0px;
     font-weight: normal;
 }
-.photo3{
-    height: 20px;
-    width: 20px;
+th:hover p{
+    color:#fb3165;
+}
+.imgbarchart{
+    background-image: url(../images/条形.png);
+}
+th:hover .imgbarchart{
+    background-image: url(../images/条形2.png);
+}
+.imgpie{
+    background-image: url(../images/饼图.png);
+}
+th:hover .imgpie{
+    background-image: url(../images/饼图2.png)
+}
+.imgarea{
+    background-image: url(../images/面积.png);
+}
+th:hover .imgarea{
+    background-image: url(../images/面积2.png);
+}
+.imgfoldline{
+    background-image: url(../images/折线.png);
+}
+th:hover .imgfoldline{
+    background-image: url(../images/折线2.png);
+}
+.imgsolid{
+    background-image: url(../images/实点.png);
+}
+th:hover .imgsolid{
+    background-image: url(../images/实点2.png);
+}
+.imghollow{
+    background-image: url(../images/空点.png);
+}
+th:hover .imghollow{
+    background-image: url(../images/空点2.png);
+}
+.imgproportion{
+    background-image: url(../images/比重.png);
+}
+th:hover .imgproportion{
+    background-image: url(../images/比重2.png)
+}
+.imggunter{
+    background-image: url(../images/甘特.png);
+}
+th:hover .imggunter{
+    background-image: url(../images/甘特2.png);
+}
+.imgmedian{
+    background-image: url(../images/中位.png);
+}
+th:hover .imgmedian{
+    background-image: url(../images/中位2.png);
+}
+.imgfixed{
+    background-image: url(../images/定点.png);
+}
+th:hover .imgfixed{
+    background-image: url(../images/定点2.png);
 }
 div.variablestab{
     width: 135px;

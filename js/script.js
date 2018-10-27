@@ -42,13 +42,15 @@ variables.addEventListener("click",function(e){
         div.className += "axisdimension";
         div.innerText = "ID编号";
         container.appendChild(div);  
+      }else if((elementx !=null)&&(elementx.innerText == "ID编号")){
+        container.removeChild(elementx);
       }
       break;
     case "tumourevenness":
       div.innerText = "肿瘤平滑度";
       if((elementx == null)&&(elementy ==null)){
-        div.setAttribute("id","yaxis");
-        div.className +="axismagnitude";
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
         container.appendChild(div);
         break;
       }else if((elementy ==null)&&(elementx.innerText != "肿瘤平滑度")){
@@ -61,12 +63,18 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
+      }else if((elementy !=null)&&(elementy.innerText == "肿瘤平滑度")){
+        container.removeChild(elementy);
+        break;
+      }else if((elementx !=null)&&(elementx.innerText == "肿瘤平滑度")){
+        container.removeChild(elementx);
+        break;
       }
     case "tumourgirth":
       div.innerText = "肿瘤周长";
       if((elementx == null)&&(elementy ==null)){
-        div.setAttribute("id","yaxis");
-        div.className +="axismagnitude";
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
         container.appendChild(div);
         break;
       }else if((elementy ==null)&&(elementx.innerText != "肿瘤周长")){
@@ -79,12 +87,18 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
+      }else if((elementy !=null)&&(elementy.innerText == "肿瘤周长")){
+        container.removeChild(elementy);
+        break;
+      }else if((elementx != null)&&(elementx.innerText == "肿瘤周长")){
+        container.removeChild(elementx);
+        break;
       }
     case "tumourarea":
       div.innerText = "肿瘤面积";
       if((elementx == null)&&(elementy ==null)){
-        div.setAttribute("id","yaxis");
-        div.className +="axismagnitude";
+        div.setAttribute("id","xaxis");
+        div.className +="axisdimension";
         container.appendChild(div);
         break;
       }else if((elementy ==null)&&(elementx.innerText != "肿瘤面积")){
@@ -97,9 +111,16 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
+      }else if((elementy != null)&&(elementy.innerText == "肿瘤面积")){
+        container.removeChild(elementy);
+        break;
+      }else if((elementx !=null)&&(elementx.innerText == "肿瘤面积")){
+        container.removeChild(elementx);
+        break;
       }
   }
 },false);
+/*
 variables.addEventListener("dblclick",function(e){
   var target = e.target;
   var elementx = document.getElementById("xaxis");
@@ -135,7 +156,7 @@ variables.addEventListener("dblclick",function(e){
       }
       break;
   }
-},false);
+},false);*/
 /*
 variables.addEventListener("mouseover",function(e){
   var target = e.target;
@@ -207,6 +228,10 @@ draw.addEventListener("click",function(e){
   var target = e.target;
   var elementx = document.getElementById("xaxis");
   var elementy = document.getElementById("yaxis");
+  readobjectarray();
+  var maxarea = d3.max(tumourarea);
+  var maxgirth = d3.max(tumourgirth);
+  var maxevenness = d3.max(tumourevenness);
   /* var p = draw.getElementsByTagName("p");
   var images =draw.getElementsByTagName("img");
  
@@ -267,29 +292,22 @@ draw.addEventListener("click",function(e){
           case "肿瘤平滑度":
             dataset.sort(compare("肿瘤平滑度"));
             readobjectarray();
-            var maxevenness = d3.max(tumourevenness);
             drawcolumn(maxevenness,"肿瘤平滑度");
             break;
           case "肿瘤面积":
             dataset.sort(compare("肿瘤面积"));
             readobjectarray();
-            var maxarea = d3.max(tumourarea);
             drawcolumn(maxarea,"肿瘤面积");
             break;
           case "肿瘤周长":
             dataset.sort(compare("肿瘤周长"));
             readobjectarray();
-            var maxgirth = d3.max(tumourgirth);
             drawcolumn(maxgirth,"肿瘤周长");
             break;
         }
       }
       break;
     case "scatter":
-      readobjectarray();
-      var maxarea = d3.max(tumourarea);
-      var maxgirth = d3.max(tumourgirth);
-      var maxevenness = d3.max(tumourevenness);
       if((elementx == null)||(elementy == null)){
         alert("请选择完整的维度量度");
       }else if((elementx.innerText == "ID编号")||(elementy.innerText == "ID编号")){
@@ -327,6 +345,50 @@ draw.addEventListener("click",function(e){
                 drawscatter(maxgirth,maxarea,"肿瘤周长","肿瘤面积");
                 break;
             }
+            break;
+        }
+      }
+      break;
+    case "linechart":
+      if((elementx == null)||(elementy == null)){
+        alert("请选择完整的维度量度");
+      }else if(elementx.innerText !="ID编号"){
+        alert("所选择的维度量度不适合折线图，请选择其他图表");
+      }else {
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        switch(elementy.innerText){
+          case "肿瘤平滑度":
+            drawlinechart(maxevenness,"肿瘤平滑度");
+            break;
+          case "肿瘤周长":
+            drawlinechart(maxgirth,"肿瘤周长");
+            break;
+          case "肿瘤面积":
+            drawlinechart(maxarea,"肿瘤面积");
+            break;
+        }
+      }
+      break;
+    case "areachart":
+      if((elementx == null)||(elementy == null)){
+        alert("请选择完整的维度量度");
+      }else if(elementx.innerText !="ID编号"){
+        alert("所选择的维度量度不适合面积图，请选择其他图表");
+      }else {
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        switch(elementy.innerText){
+          case "肿瘤平滑度":
+            drawareachart(maxevenness,"肿瘤平滑度");
+            break;
+          case "肿瘤周长":
+            drawareachart(maxgirth,"肿瘤周长");
+            break;
+          case "肿瘤面积":
+            drawareachart(maxarea,"肿瘤面积");
             break;
         }
       }
@@ -382,8 +444,208 @@ draw.addEventListener("click",function(e){
      console.log("draw");
    }
 },false);*/
+function drawlinechart(yAxisWidth,s){
+  var width = 700;
+  var height = 500;
+  var padding = 20;
+  var svg = d3.select("#chart")
+      .append("svg")
+      .attr("width",width)
+      .attr("height",height);
+   
+  var xScale = d3.scalePoint()
+      .domain(tumourid)
+      .range([2*padding,width-2*padding]);
+  var yScale = d3.scaleLinear()
+      .domain([0,1.1*yAxisWidth])
+      .range([height-3*padding,3*padding]);
+  var xAxis = d3.axisBottom(xScale)
+      .tickSize(0)
+      .tickPadding(6)
+      .tickValues(xScale.domain().filter(function(d,i){return !(i%10)}));
+  var yAxis =d3.axisLeft(yScale).tickSize(0);
+  function make_y_axis(){
+    return d3.axisLeft(yScale);
+  }
+  svg.append("g")
+      .attr("class","grid")
+      .call(make_y_axis()
+        .tickSize(-width+4*padding,0,0)
+        .tickFormat(""))
+      .attr("transform","translate("+(2*padding)+",0)");
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate(0,"+(height-3*padding)+")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("transform","rotate(90)"+"translate("+(1.4*padding)+",0)")
+   d3.select(".axis").append("text")
+      .attr("fill","black")
+      .attr("text-anchor","end")
+      .attr("font-size",10)
+      .attr("x",width-padding)
+      .attr("y",padding)
+      .text("肿瘤ID");
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate("+(2*padding)+",0)")
+      .call(yAxis)
+      .append("text")
+      .attr("text-anchor","middle")
+      .attr("font-size",10)
+      .attr("fill","black")
+      .attr("x",0)
+      .attr("y",3*padding)
+      .text(s);
+  var line = d3.line()
+      .x(function(d){return xScale(d["ID "])})
+      .y(function(d){return yScale(d[s])});
+  svg.append("path")
+      .datum(dataset)
+      .attr("class","pathline")
+      .attr("d",line);
+  var g = svg.append("g")
+    .selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr("class","linecircle")
+    .attr("cx",line.x())
+    .attr("cy",line.y())
+    .attr("r",1.5)
+    .attr("fill","red")
+    .on("mouseover",function(d){
+      d3.select(this)
+        .attr("fill","black");
+      var xPosition = parseFloat(d3.select(this).attr("cx"));
+      var yPosition = parseFloat(d3.select(this).attr("cy"));
+      d3.select("#tooltip")
+        .style("left",xPosition+"px")
+        .style("top",yPosition+"px")
+        .select("#valueid")
+        .text(d["ID "]);
+      d3.select("#tooltip")
+        .select("#valueproperty")
+        .text(d["肿瘤性质"]);
+      d3.select("#tooltip")
+        .select("#valuegirth")
+        .text(d["肿瘤周长"]);
+      d3.select("#tooltip")
+        .select("#valuearea")
+        .text(d["肿瘤面积"]);
+      d3.select("#tooltip")
+        .select("#valueevenness")
+        .text(d["肿瘤平滑度"]);
+      d3.select("#tooltip").classed("hidden",false);
+    })
+    .on("mouseout",function(){
+      d3.select(this)
+        .attr("fill","red");
+      d3.select("#tooltip").classed("hidden",true);
+    });
+}
 
-
+function drawareachart(yAxisWidth,s){
+  var width = 700;
+  var height = 500;
+  var padding = 20;
+  var svg = d3.select("#chart")
+      .append("svg")
+      .attr("width",width)
+      .attr("height",height);
+   
+  var xScale = d3.scalePoint()
+      .domain(tumourid)
+      .range([2*padding,width-2*padding]);
+  var yScale = d3.scaleLinear()
+      .domain([0,1.1*yAxisWidth])
+      .range([height-3*padding,3*padding]);
+  var xAxis = d3.axisBottom(xScale)
+      .tickSize(0)
+      .tickPadding(6)
+      .tickValues(xScale.domain().filter(function(d,i){return !(i%10)}));
+  var yAxis =d3.axisLeft(yScale).tickSize(0);
+  function make_y_axis(){
+    return d3.axisLeft(yScale);
+  }
+  svg.append("g")
+      .attr("class","grid")
+      .call(make_y_axis()
+        .tickSize(-width+4*padding,0,0)
+        .tickFormat(""))
+      .attr("transform","translate("+(2*padding)+",0)");
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate(0,"+(height-3*padding)+")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("transform","rotate(90)"+"translate("+(1.4*padding)+",0)")
+   d3.select(".axis").append("text")
+      .attr("fill","black")
+      .attr("text-anchor","end")
+      .attr("font-size",10)
+      .attr("x",width-padding)
+      .attr("y",padding)
+      .text("肿瘤ID");
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate("+(2*padding)+",0)")
+      .call(yAxis)
+      .append("text")
+      .attr("text-anchor","middle")
+      .attr("font-size",10)
+      .attr("fill","black")
+      .attr("x",0)
+      .attr("y",3*padding)
+      .text(s);
+  var area = d3.area()
+      .x(function(d){return xScale(d["ID "])})
+      .y0(function(){return yScale.range()[0];})
+      .y1(function(d){return yScale(d[s])});
+  svg.append("path")
+      .datum(dataset)
+      .attr("class","patharea")
+      .attr("d",area);
+  var g = svg.append("g")
+    .selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr("class","linecircle")
+    .attr("cx",area.x())
+    .attr("cy",area.y1())
+    .attr("r",1.5)
+    .attr("fill","red")
+    .on("mouseover",function(d){
+      d3.select(this)
+        .attr("fill","black");
+      var xPosition = parseFloat(d3.select(this).attr("cx"));
+      var yPosition = parseFloat(d3.select(this).attr("cy"));
+      d3.select("#tooltip")
+        .style("left",xPosition+"px")
+        .style("top",yPosition+"px")
+        .select("#valueid")
+        .text(d["ID "]);
+      d3.select("#tooltip")
+        .select("#valueproperty")
+        .text(d["肿瘤性质"]);
+      d3.select("#tooltip")
+        .select("#valuegirth")
+        .text(d["肿瘤周长"]);
+      d3.select("#tooltip")
+        .select("#valuearea")
+        .text(d["肿瘤面积"]);
+      d3.select("#tooltip")
+        .select("#valueevenness")
+        .text(d["肿瘤平滑度"]);
+      d3.select("#tooltip").classed("hidden",false);
+    })
+    .on("mouseout",function(){
+      d3.select(this)
+        .attr("fill","red");
+      d3.select("#tooltip").classed("hidden",true);
+    });
+}
 
 function drawcolumn(yAxisWidth,s){
   var width=700;
@@ -396,7 +658,7 @@ function drawcolumn(yAxisWidth,s){
 
   var xScale = d3.scaleBand()
       .domain(tumourid)
-      .rangeRound([2*padding,width-padding*2]);
+      .rangeRound([2*padding,width-2*padding]);
 
   var yScale = d3.scaleLinear()
       .domain([0,1.1*yAxisWidth])
@@ -539,7 +801,8 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
       .domain([0,1.1*yAxisWidth])
       .range([height-padding,padding]);
 
-  var circle=svg.selectAll("circle")
+  var circle=svg.append("g")
+      .selectAll("circle")
       .data(dataset)
       .enter()
       .append("circle")
@@ -611,20 +874,22 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
   svg.append("g")
       .attr("class","axis")
       .attr("transform","translate(0,"+(height-padding)+")")
-      .call(xAxis);
-  svg.append("text")
+      .call(xAxis)
+      .append("text")
+      .attr("fill","black")
       .attr("text-anchor","end")
       .attr("font-size",10)
       .attr("x",width)
-      .attr("y",height-padding/2)
+      .attr("y",0)
       .text(xstring);
   
   svg.append("g")
       .attr("class","axis")
       .attr("transform","translate("+(2*padding)+",0)")
       .call(yAxis)
-  svg.append("text")
-      .attr("text-anchor","start")
+      .append("text")
+      .attr("fill","black")
+      .attr("text-anchor","middle")
       .attr("font-size",10)
       .attr("x",0)
       .attr("y",padding)

@@ -1,6 +1,11 @@
+html{
+    height: 100%;
+}
 body{
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
+    height: 100%;
 }
 div.topnav{
     height: 102px;
@@ -11,6 +16,8 @@ div.topnav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    z-index: 100;
 }
 .iconleft{
     display: flex;
@@ -133,12 +140,17 @@ div.account{
 .main{
     order: 2;
     display: flex;
+    margin-top: 102px;
+    width: 100%;
 }
 div.leftnav{
-    width: 230px;
+    width: 160px;
+    height: 100%;
     background-color: #ffffff;
     box-shadow: 2px 2px 10px 2px #CCE3EC;
     opacity: 0.8;
+    position: fixed;
+    z-index: 80;
 }
 ul{
     list-style-type: none;
@@ -151,17 +163,38 @@ ul{
     margin: 80px auto;
     text-align: center;
 }
+.leftnav ul li i{
+    height: 40px;
+    width: 35px;
+    background-size: cover;
+    display: inline-block;
+}
+.jiezhen{
+    background-image: url("../images/接诊.png");
+}
+.leftnav li:hover .jiezhen{
+    background-image: url("../images/接诊2.png");
+}
+.huizhen{
+    background-image: url("../images/会诊.png");
+}
+.leftnav li:hover .huizhen{
+    background-image: url("../images/会诊2.png");
+}
+.mydata{
+    background-image: url("../images/数据2.png");
+}
+li:hover a{
+    color: #fb3165;
+}
 
 .leftnav a{
     text-decoration: none;
     color: black;
 }
-a:hover{
-    color: #fb3165;
-}
 .leftnav ul li .photo1{
     position: absolute;
-    margin-left: -70px;
+    margin-left: -60px;
 }
 
 div.content{
@@ -169,6 +202,9 @@ div.content{
     opacity: 0.8;
     display: flex;
     flex-wrap: wrap;
+    margin-left: 160px;
+    width: 100%;
+    overflow: scroll;
 }
 div.inputtime{
     margin: 60px auto;
@@ -238,12 +274,17 @@ div.inputtime input{
     padding: 4px 0;
 }
 .maincontent{
+    margin: 60px auto;
     width: 100%;
     height: 100%;
     order: 2;
     display: flex;
     justify-content: space-around;
     background-color: #f9f9f9;
+}
+.maincontent .title{
+    display:block;
+    height: 28px;
 }
 .variables{
     order: 1;
@@ -255,15 +296,21 @@ div.dimensions{
 }
 
 .photo2{
-    height:28px;
-    width: 7px;
-    position: absolute;
+    background-size: 8px 20px;
+    background-repeat: no-repeat;
+    font-style: normal;
+}
+.photo2backred{
+    background-image: url("../images/界面切换符.png");
+}
+.photo2backblue{
+    background-image: url("../images/界面切换符2.png");
 }
 h3{
     font-weight: bold;
     position: relative;
     display: inline;
-    margin-left: 20px;
+    margin-left: 18px;
 }
 .content ul{
     margin-left: 20px;
@@ -306,7 +353,6 @@ div.magnitude {
     color: black;
 }
 div.choosedvariables{
-    width: 700px;
     order: 2;
 }
 #selectedvariables{
@@ -316,7 +362,8 @@ div.choosedvariables{
 }
 #chart{
     height: 600px;
-    position: absolute;
+    position: relative;
+    min-width: 500px;
 }
 .rightsidebar{
     order: 3;
@@ -475,6 +522,15 @@ div.variablestab{
 .column{
     fill:steelblue;
 }
+.pathline{
+    stroke: red;
+    fill: none;
+    stroke-width: 1.5;
+}
+.patharea{
+    stroke: red;
+    fill: red;
+}
 #tooltip{
     position: absolute;
     width: auto;
@@ -484,6 +540,7 @@ div.variablestab{
     border-radius:10px;
     box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
     pointer-events: none;
+    z-index: 100;
 }
 #tooltip.hidden{
     display: none;

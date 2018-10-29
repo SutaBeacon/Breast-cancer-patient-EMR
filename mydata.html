@@ -175,7 +175,7 @@
                             </tr>
                             <tr>
                                 <th id="scatter"><i class="imgsolid"></i><p>实点</p></th>
-                                <th><i class="imghollow"></i><p>空点</p></th>
+                                <th id="hollow"><i class="imghollow"></i><p>空点</p></th>
                             </tr>
                             <tr>
                                 <th><i class="imgproportion"></i><p>比重</p></th>
@@ -187,17 +187,22 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="variablestab">
+                    <div class="variablestab" id="variablesattributes">
                         <i class="photo2 photo2backred"><h3>变量标记</h3></i>
                         <ul>
                             <li>
-                                <p href="#color">颜色</p>
+                                <p>颜色 <input id="variablescolor" type="color" class="varcolor"/></p>
                             </li>
                             <li>
-                                <p href="#word">文字</p>
+                                <p>大小<input type="range" id="variablessize" max="10" min="1"/> </p>
                             </li>
                             <li>
-                                <p href="#size">大小</p>
+                                <p>形状</p>
+                                <div id="tabrect"></div>
+                                <div id="tabellipse"></div>
+                            </li>
+                            <li>
+                                <p>文字</p>
                             </li>
                         </ul>
                     </div>

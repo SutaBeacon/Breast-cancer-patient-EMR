@@ -349,6 +349,48 @@ draw.addEventListener("click",function(e){
         }
       }
       break;
+    case "hollow":
+      if((elementx == null)||(elementy == null)){
+        alert("请选择完整的维度量度");
+      }else if((elementx.innerText == "ID编号")||(elementy.innerText == "ID编号")){
+        alert("所选择的维度量度不适合散点图，请选择其他图表");
+      }else{
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        switch(elementx.innerText){
+          case "肿瘤平滑度":
+            switch(elementy.innerText){
+              case "肿瘤面积":
+                drawhollow(maxevenness,maxarea,"肿瘤平滑度","肿瘤面积");
+                break;
+              case "肿瘤周长":
+                drawhollow(maxevenness,maxgirth,"肿瘤平滑度","肿瘤周长");
+            }
+            break;
+          case "肿瘤面积":
+            switch(elementy.innerText){
+              case "肿瘤平滑度":
+                drawhollow(maxarea,maxevenness,"肿瘤面积","肿瘤平滑度");
+                break;
+              case "肿瘤周长":
+                drawhollow(maxarea,maxgirth,"肿瘤面积","肿瘤周长");
+                break;
+            }
+            break;
+          case "肿瘤周长":
+            switch(elementy.innerText){
+              case "肿瘤平滑度":
+                drawhollow(maxgirth,maxevenness,"肿瘤周长","肿瘤平滑度");
+                break;
+              case "肿瘤面积":
+                drawhollow(maxgirth,maxarea,"肿瘤周长","肿瘤面积");
+                break;
+            }
+            break;
+        }
+      }
+      break;
     case "linechart":
       if((elementx == null)||(elementy == null)){
         alert("请选择完整的维度量度");
@@ -502,7 +544,9 @@ function drawlinechart(yAxisWidth,s){
       .y(function(d){return yScale(d[s])});
   svg.append("path")
       .datum(dataset)
-      .attr("class","pathline")
+      .attr("id","pathline")
+      .attr("stroke",document.getElementById("variablescolor").value)
+      .attr("fill","none")
       .attr("d",line);
   var g = svg.append("g")
     .selectAll("circle")
@@ -512,8 +556,8 @@ function drawlinechart(yAxisWidth,s){
     .attr("class","linecircle")
     .attr("cx",line.x())
     .attr("cy",line.y())
-    .attr("r",1.5)
-    .attr("fill","red")
+    .attr("r",document.getElementById("variablessize").value)
+    .attr("fill",document.getElementById("variablescolor").value)
     .on("mouseover",function(d){
       d3.select(this)
         .attr("fill","black");
@@ -540,7 +584,7 @@ function drawlinechart(yAxisWidth,s){
     })
     .on("mouseout",function(){
       d3.select(this)
-        .attr("fill","red");
+        .attr("fill",document.getElementById("variablescolor").value);
       d3.select("#tooltip").classed("hidden",true);
     });
 }
@@ -604,7 +648,9 @@ function drawareachart(yAxisWidth,s){
       .y1(function(d){return yScale(d[s])});
   svg.append("path")
       .datum(dataset)
-      .attr("class","patharea")
+      .attr("id","patharea")
+      .attr("stroke",document.getElementById("variablescolor").value)
+      .attr("fill",document.getElementById("variablescolor").value)
       .attr("d",area);
   var g = svg.append("g")
     .selectAll("circle")
@@ -614,8 +660,8 @@ function drawareachart(yAxisWidth,s){
     .attr("class","linecircle")
     .attr("cx",area.x())
     .attr("cy",area.y1())
-    .attr("r",1.5)
-    .attr("fill","red")
+    .attr("r",document.getElementById("variablessize").value)
+    .attr("fill",document.getElementById("variablescolor").value)
     .on("mouseover",function(d){
       d3.select(this)
         .attr("fill","black");
@@ -642,7 +688,7 @@ function drawareachart(yAxisWidth,s){
     })
     .on("mouseout",function(){
       d3.select(this)
-        .attr("fill","red");
+        .attr("fill",document.getElementById("variablescolor").value);
       d3.select("#tooltip").classed("hidden",true);
     });
 }
@@ -724,7 +770,7 @@ function drawcolumn(yAxisWidth,s){
       .data(dataset)
       .enter()
       .append("rect")
-      .attr("fill","red")
+      .attr("fill",document.getElementById("variablescolor").value)
       .attr("x",function(d){
         return xScale(d["ID "])+xScale.bandwidth()/2;
       })
@@ -772,7 +818,7 @@ function drawcolumn(yAxisWidth,s){
       })
       .on("mouseout",function(){
         d3.select(this)
-          .attr("fill","red");
+          .attr("fill",document.getElementById("variablescolor").value);
        // d3.select("#tooltip").remove();
         d3.select("#tooltip").classed("hidden",true);
       });
@@ -802,11 +848,12 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
       .range([height-padding,padding]);
 
   var circle=svg.append("g")
+      .attr("id","solid")
       .selectAll("circle")
       .data(dataset)
       .enter()
       .append("circle")
-      .attr("fill","red")
+      .attr("fill",document.getElementById("variablescolor").value)
       .attr("cx",function(d){
         return xScale(d[xstring]);
         console.log(xstring);
@@ -815,7 +862,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
         return yScale(d[ystring]);
         console.log(ystring);
       })
-      .attr("r",5)
+      .attr("r",document.getElementById("variablessize").value)
       .on("mouseover",function(d){
         d3.select(this)
           .attr("fill","black");
@@ -842,7 +889,122 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring){
       })
       .on("mouseout",function(){
         d3.select(this)
-          .attr("fill","red");
+          .attr("fill",document.getElementById("variablescolor").value);
+        d3.select("#tooltip").classed("hidden",true);
+      });
+
+  var xAxis = d3.axisBottom(xScale).tickSize(0,0,0);
+      
+
+  var yAxis = d3.axisLeft(yScale).tickSize(0,0,0);
+  
+  function make_x_axis(){
+    return d3.axisBottom(xScale);
+  }
+  function make_y_axis(){
+    return d3.axisLeft(yScale);
+  }
+  svg.append("g")
+    .attr("class","grid")
+    .call(make_x_axis()
+      .tickSize(height-2*padding,0,0)
+      .tickFormat("")
+    )
+    .attr("transform","translate(0,"+padding+")");
+  svg.append("g")
+  .attr("class","grid")
+  .call(make_y_axis()
+    .tickSize(-width+4*padding,0,0)
+    .tickFormat("")
+  )
+  .attr("transform","translate("+(2*padding)+",0)");
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate(0,"+(height-padding)+")")
+      .call(xAxis)
+      .append("text")
+      .attr("fill","black")
+      .attr("text-anchor","end")
+      .attr("font-size",10)
+      .attr("x",width)
+      .attr("y",0)
+      .text(xstring);
+  
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform","translate("+(2*padding)+",0)")
+      .call(yAxis)
+      .append("text")
+      .attr("fill","black")
+      .attr("text-anchor","middle")
+      .attr("font-size",10)
+      .attr("x",0)
+      .attr("y",padding)
+      .text(ystring);
+}
+
+
+function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring){
+  var width=500;
+  var height=500;
+  var padding=20;
+  var svg = d3.select("#chart")
+      .append("svg")
+      .attr("width",width)
+      .attr("height",height)
+
+  var xScale = d3.scaleLinear()
+      .domain([0,1.1*xAxisWidth])
+      .range([2*padding,width-padding*2]);
+
+  var yScale = d3.scaleLinear()
+      .domain([0,1.1*yAxisWidth])
+      .range([height-padding,padding]);
+
+  var circle=svg.append("g")
+      .attr("id","hollow")
+      .selectAll("circle")
+      .data(dataset)
+      .enter()
+      .append("circle")
+      .attr("fill","none")
+      .attr("stroke",document.getElementById("variablescolor").value)
+      .attr("cx",function(d){
+        return xScale(d[xstring]);
+        console.log(xstring);
+      })
+      .attr("cy",function(d){
+        return yScale(d[ystring]);
+        console.log(ystring);
+      })
+      .attr("r",document.getElementById("variablessize").value)
+      .on("mouseover",function(d){
+        d3.select(this)
+          .attr("stroke","black");
+        var xPosition = parseFloat(d3.select(this).attr("cx"));
+        var yPosition = parseFloat(d3.select(this).attr("cy"));
+        d3.select("#tooltip")
+          .style("left",xPosition+"px")
+          .style("top",yPosition+"px")
+          .select("#valueid")
+          .text(d["ID "]);
+        d3.select("#tooltip")
+          .select("#valueproperty")
+          .text(d["肿瘤性质"]);
+        d3.select("#tooltip")
+          .select("#valuegirth")
+          .text(d["肿瘤周长"]);
+        d3.select("#tooltip")
+          .select("#valuearea")
+          .text(d["肿瘤面积"]);
+        d3.select("#tooltip")
+          .select("#valueevenness")
+          .text(d["肿瘤平滑度"]);
+        d3.select("#tooltip").classed("hidden",false);
+      })
+      .on("mouseout",function(){
+        d3.select(this)
+          .attr("stroke",document.getElementById("variablescolor").value);
         d3.select("#tooltip").classed("hidden",true);
       });
 
@@ -951,3 +1113,81 @@ function compare(propertyname){
       return value1-value2;
     }
 }
+var variablestag = document.getElementById("variablesattributes");
+variablestag.addEventListener("change",function(e){
+  var target = e.target;
+  var elementx = document.getElementById("xaxis");
+  var elementy = document.getElementById("yaxis");
+  if((elementx == null)||(elementy == null)||(document.getElementsByTagName("svg").length == 0)){
+        alert("请先生成图表！");
+  }else{
+    switch(target.id.toLowerCase()){
+      case "variablescolor":
+        var color = target.value;
+        if(elementx.innerText == "ID编号"){
+          if(document.getElementById("rects") != null){
+            d3.select("svg")
+              .selectAll("rect")
+              .attr("fill",color);
+          /* var rects = document.getElementsByTagName("rect");
+            for(var i=0;i<rects.length;i++){
+              rects[i].setAttribute("fill",color)
+            }*/
+          }else if(document.getElementById("pathline") != null){
+            var pathlineattributes = document.getElementById("pathline");
+            pathlineattributes.setAttribute("stroke",color);
+            d3.select("svg")
+              .selectAll("circle")
+              .attr("fill",color);
+          }else if(document.getElementById("patharea") != null){
+            var pathareaattributes = document.getElementById("patharea");
+            pathareaattributes.setAttribute("stroke",color);
+            pathareaattributes.setAttribute("fill",color);
+            d3.select("svg")
+              .selectAll("circle")
+              .attr("fill",color);
+          }
+          break;
+        }else if(document.getElementById("solid") != null){
+          d3.select("svg")
+            .selectAll("circle")
+            .attr("fill",color);
+          break;
+        }else if(document.getElementById("hollow") != null){
+          d3.select("svg")
+            .selectAll("circle")
+            .attr("stroke",color);
+          break;
+        }
+        break;
+      case "variablessize":
+        var size = target.value;
+        if(elementx.innerText == "ID编号"){
+          if(document.getElementById("rects") != null ){
+            alert("条形图大小不可调！");
+          }
+          else if(document.getElementById("pathline") != null){
+            d3.select("svg")
+              .selectAll("circle")
+              .attr("r",size);
+          }else if(document.getElementById("patharea") != null){
+            d3.select("svg")
+              .selectAll("circle")
+              .attr("r",size);
+          }
+          break;
+        }else if(document.getElementById("solid") != null){
+          d3.select("svg")
+            .selectAll("circle")
+            .attr("r",size);
+          break;
+        }else if(document.getElementById("hollow") != null){
+          d3.select("svg")
+            .selectAll("circle")
+            .attr("r",size);
+          break;
+        }
+        break;
+    }
+  } 
+},false);

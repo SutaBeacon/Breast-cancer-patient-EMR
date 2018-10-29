@@ -464,15 +464,41 @@ th:hover .imgfixed{
 }
 div.variablestab{
     width: 135px;
-    height: 200px;
+    height: 230px;
     margin-top:20px;
 }
 .variablestab p{
     color: gray;
     font-size: 15px;
+    display: inline;
 }
 .variablestab ul li{
     height: 30px;
+    margin: 3px 0;
+}
+.variablestab ul li:hover p{
+    color: #fb3165;
+}
+.variablestab ul li .varcolor{
+    width: 50px;
+}
+.variablestab ul li #variablessize{
+    width: 50px;
+    margin-left: 5px;
+}
+.variablestab ul li #tabrect{
+    width: 15px;
+    height: 10px;
+    border: 1px solid gray;
+    display: inline-block;
+}
+.variablestab ul li #tabellipse{
+    width: 10px;
+    height:10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 5px;
 }
 .tools{
     width: 135px;
@@ -530,6 +556,11 @@ div.variablestab{
 .patharea{
     stroke: red;
     fill: red;
+}
+.hollow{
+    fill: none;
+    stroke-width: 2px;
+    stroke: red;
 }
 #tooltip{
     position: absolute;

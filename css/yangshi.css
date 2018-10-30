@@ -487,10 +487,13 @@ div.variablestab{
     margin-left: 5px;
 }
 .variablestab ul li #tabrect{
-    width: 15px;
+    width: 10px;
     height: 10px;
     border: 1px solid gray;
     display: inline-block;
+}
+.variablestab ul li #tabrect:hover{
+    border: 1px solid #fb3165;
 }
 .variablestab ul li #tabellipse{
     width: 10px;
@@ -498,7 +501,19 @@ div.variablestab{
     border: 1px solid gray;
     border-radius: 5px;
     display: inline-block;
-    margin-left: 5px;
+}
+.variablestab ul li #tabellipse:hover{
+    border: 1px solid #fb3165;
+}
+.variablestab ul li #tabcircle{
+    width: 10px;
+    height: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: inline-block;
+}
+.variablestab ul li #tabcircle:hover{
+    border: 1px solid #fb3165;
 }
 .tools{
     width: 135px;

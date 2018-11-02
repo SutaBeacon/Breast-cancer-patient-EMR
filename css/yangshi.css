@@ -360,7 +360,7 @@ div.choosedvariables{
     position: relative;
     margin-left: 20px;
 }
-#chart{
+.chartpart{
     height: 600px;
     position: relative;
     min-width: 500px;
@@ -515,12 +515,12 @@ div.variablestab{
 .variablestab ul li #tabcircle:hover{
     border: 1px solid #fb3165;
 }
-.tools{
+#tools{
     width: 135px;
     height: 100px;
 }
-.tools p{
-    background-color: red;
+#tools a{
+    background-color: pink;
     color: white;
     display: inline-block;
     width: 110px;
@@ -532,6 +532,10 @@ div.variablestab{
     margin-bottom: 5px;
     position: relative;
     text-decoration: none;
+    height: 20px;
+}
+#tools a:hover{
+    color: #fb3165;
 }
 .line {
     fill: none;

@@ -7,6 +7,8 @@
     <title>我的数据</title>
     <script type="text/javascript" src="./d3/d3.js"></script>
     <script type="text/javascript" src="./d3/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="./css/yangshi.css">
 </head>
 <body>
@@ -151,7 +153,7 @@
                 <div class="choosedvariables">
                     <i class="photo2 photo2backblue"><h3>已添加变量</h3></i>
                     <div id="selectedvariables"></div>
-                    <div id="chart">
+                    <div class="chartpart">
                         <div id="tooltip" class="hidden"> 
                             <p><strong>ID:</strong><span id="valueid"></span></p> 
                             <p><strong>肿瘤性质:</strong><span id="valueproperty"></span></p>
@@ -159,6 +161,7 @@
                             <p><strong>肿瘤平滑度:</strong><span id="valueevenness"></span></p>
                             <p><strong>肿瘤面积:</strong><span id="valuearea"></span></p>
                         </div>
+                        <div id="chart"></div>
                     </div>
                 </div>
                 <div class="rightsidebar">
@@ -207,9 +210,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tools">
-                        <p href="#exportexcel">导出Excel表单</p>
-                        <p href="#exportvisualdiagram">导出可视化图表</p>
+                    <div id="tools">
+                        <a id="exportsvg">导出svg</a>
+                        <a id="exportpng">导出png</a>
+                        <a id="exportpdf">导出pdf</a>
                     </div>
                 </div>
             </div>

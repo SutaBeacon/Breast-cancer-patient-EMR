@@ -510,7 +510,9 @@ function drawlinechart(yAxisWidth,s,shape){
     return d3.axisLeft(yScale);
   }
   svg.append("g")
-      .attr("class","grid")
+      .attr("stroke","lightgray")
+      .attr("stroke-opacity","0.1")
+      .attr("shape-rendering","crispEdges")
       .call(make_y_axis()
         .tickSize(-width+4*padding,0,0)
         .tickFormat(""))
@@ -539,6 +541,8 @@ function drawlinechart(yAxisWidth,s,shape){
       .attr("x",0)
       .attr("y",3*padding)
       .text(s);
+  svg.selectAll("text")
+      .attr("fill","black");
   var line = d3.line()
       .x(function(d){return xScale(d["ID "])})
       .y(function(d){return yScale(d[s])});
@@ -704,7 +708,9 @@ function drawareachart(yAxisWidth,s,shape){
     return d3.axisLeft(yScale);
   }
   svg.append("g")
-      .attr("class","grid")
+      .attr("stroke","lightgray")
+      .attr("stroke-opacity","0.1")
+      .attr("shape-rendering","crispEdges")
       .call(make_y_axis()
         .tickSize(-width+4*padding,0,0)
         .tickFormat(""))
@@ -733,6 +739,8 @@ function drawareachart(yAxisWidth,s,shape){
       .attr("x",0)
       .attr("y",3*padding)
       .text(s);
+  svg.selectAll("text")
+      .attr("fill","black");
   var area = d3.area()
       .x(function(d){return xScale(d["ID "])})
       .y0(function(){return yScale.range()[0];})
@@ -910,7 +918,9 @@ function drawcolumn(yAxisWidth,s){
 
 
   svg.append("g")
-      .attr("class","grid")
+      .attr("stroke","lightgray")
+      .attr("stroke-opacity","0.1")
+      .attr("shape-rendering","crispEdges")
       .call(make_y_axis()
        .tickSize(-width+4*padding,0,0)
        .tickFormat(""))
@@ -942,6 +952,8 @@ function drawcolumn(yAxisWidth,s){
       .attr("y",3*padding)
       .text(s);
   
+  svg.selectAll("text")
+      .attr("fill","black");
   var rects = svg.append("g")
       .attr("id","rects")
       .selectAll("rect")
@@ -1175,14 +1187,18 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
     return d3.axisLeft(yScale);
   }
   svg.append("g")
-    .attr("class","grid")
+    .attr("stroke","lightgray")
+    .attr("stroke-opacity","0.1")
+    .attr("shape-rendering","crispEdges")
     .call(make_x_axis()
       .tickSize(height-2*padding,0,0)
       .tickFormat("")
     )
     .attr("transform","translate(0,"+padding+")");
   svg.append("g")
-  .attr("class","grid")
+  .attr("stroke","lightgray")
+  .attr("stroke-opacity","0.1")
+  .attr("shape-rendering","crispEdges")
   .call(make_y_axis()
     .tickSize(-width+4*padding,0,0)
     .tickFormat("")
@@ -1211,6 +1227,9 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       .attr("x",0)
       .attr("y",padding)
       .text(ystring);
+
+  svg.selectAll("text")
+      .attr("fill","black");
 }
 
 
@@ -1386,14 +1405,18 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
     return d3.axisLeft(yScale);
   }
   svg.append("g")
-    .attr("class","grid")
+    .attr("stroke","lightgray")
+    .attr("stroke-opacity","0.1")
+    .attr("shape-rendering","crispEdges")
     .call(make_x_axis()
       .tickSize(height-2*padding,0,0)
       .tickFormat("")
     )
     .attr("transform","translate(0,"+padding+")");
   svg.append("g")
-  .attr("class","grid")
+  .attr("stroke","lightgray")
+  .attr("stroke-opacity","0.1")
+  .attr("shape-rendering","crispEdges")
   .call(make_y_axis()
     .tickSize(-width+4*padding,0,0)
     .tickFormat("")
@@ -1422,6 +1445,9 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       .attr("x",0)
       .attr("y",padding)
       .text(ystring);
+  
+  svg.selectAll("text")
+      .attr("fill","black");
 }
 /*
 function drawpie(){
@@ -1619,14 +1645,15 @@ variablestag.addEventListener("click",function(e){
         }else if(elementy.innerText == "肿瘤面积"){
           nowdata  = tumourarea;
         }
-        if(document.getElementById("rects") != null){
+        if(document.getElementsByTagName("rect").length != 0){
           var rects = document.getElementsByTagName("rect");
           for(var i=0;i<rects.length;i++){
             var xPosition = parseFloat(rects[i].getAttribute("x"));
             var yPosition = parseFloat(rects[i].getAttribute("y"));
             d3.select("svg")
-            .append("text")
+            .append("g")
             .attr("id","variablelable")
+            .append("text")
             .attr("x",xPosition)
             .attr("y",yPosition)
             .attr("text-anchor","middle")
@@ -1641,8 +1668,26 @@ variablestag.addEventListener("click",function(e){
             var xPosition = parseFloat(circles[i].getAttribute("cx"));
             var yPosition = parseFloat(circles[i].getAttribute("cy"));
             d3.select("svg")
-            .append("text")
+            .append("g")
             .attr("id","variablelable")
+            .append("text")
+            .attr("x",xPosition)
+            .attr("y",yPosition)
+            .attr("text-anchor","middle")
+            .attr("font-family","sans-serif")
+            .attr("font-size","5px")
+            .attr("fill","black")
+            .text(nowdata[i]);
+          }
+        }else if(document.getElementsByTagName("ellipse").length != 0){
+          var ellipses =  document.getElementsByTagName("ellipse");
+          for(var i=0;i<ellipses.length;i++){
+            var xPosition = parseFloat(ellipses[i].getAttribute("cx"));
+            var yPosition = parseFloat(ellipses[i].getAttribute("cy"));
+            d3.select("svg")
+            .append("g")
+            .attr("id","variablelable")
+            .append("text")
             .attr("x",xPosition)
             .attr("y",yPosition)
             .attr("text-anchor","middle")
@@ -1754,5 +1799,63 @@ variablestag.addEventListener("click",function(e){
           }
       }
     } 
+  }
+},false);
+var tools = document.getElementById("tools");
+tools.addEventListener("click",function(e){
+  var target = e.target;
+  if(document.getElementsByTagName("svg").length == 0){
+    alert("请先生成图表！");
+  }else{
+    var html = d3.select("svg")
+      .attr("version",1.1)
+      .attr("xmlns","http://www.w3.org/2000/svg")
+      .node().parentNode.innerHTML;
+    var canvas = document.createElement("canvas");
+      canvas.width = d3.select("svg").attr("width");
+      canvas.height = d3.select("svg").attr("height");
+      var context = canvas.getContext("2d");
+      var image = new Image();
+      image.src = 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(html)));
+    switch(target.id.toLowerCase()){
+      case "exportsvg":
+        var svgBlob = new Blob([html],{type:"image/svg+xml"});
+        var svgUrl = URL.createObjectURL(svgBlob);
+        target.href = svgUrl;
+        target.download = "chart.svg";
+        break;
+      case "exportpng":
+        image.onload = function(){
+          context.drawImage(image,0,0);
+          var canvasdata = canvas.toDataURL("image/png");
+          target.download = "chart.png";
+          target.href = canvasdata;
+        };
+        break;
+      case "exportpdf":
+      /*
+        function SVG2PNG (svg,callback){
+          var canvas = document.createElement("canvas");
+          var ctx = canvas.getContext("2d");
+          var data = svg.outerHTML;
+          canvg(canvas,data);
+          callback(canvas);
+        }
+        var element = document.getElementsByTagName("svg")[0];
+        SVG2PNG(element, function(canvas){
+          var img = canvas.toDataURL("image/png");
+          var doc = new jsPDF('l','mm',[250,350]);
+          doc.addImage(img,'PNG',0,0,350,250);
+          doc.save('chart.pdf');
+        });*/
+        image.onload = function(){
+          context.drawImage(image,0,0);
+          var canvasdata = canvas.toDataURL("image/png");
+          var doc = new jsPDF('l','mm',[250,350]);
+          doc.addImage(canvasdata,'PNG',0,0,350,250);
+          doc.save('chart.pdf');
+        };
+        break;
+    }
   }
 },false);

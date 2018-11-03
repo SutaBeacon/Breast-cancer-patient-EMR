@@ -518,12 +518,12 @@ function drawlinechart(yAxisWidth,s,shape){
         .tickFormat(""))
       .attr("transform","translate("+(2*padding)+",0)");
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--x")
       .attr("transform","translate(0,"+(height-3*padding)+")")
       .call(xAxis)
       .selectAll("text")
       .attr("transform","rotate(90)"+"translate("+(1.4*padding)+(-padding)+")")
-   d3.select(".axis").append("text")
+   d3.select(".axis--x").append("text")
       .attr("fill","black")
       .attr("text-anchor","end")
       .attr("font-size",10)
@@ -531,7 +531,7 @@ function drawlinechart(yAxisWidth,s,shape){
       .attr("y",padding)
       .text("肿瘤ID");
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--y")
       .attr("transform","translate("+(2*padding)+",0)")
       .call(yAxis)
       .append("text")
@@ -1037,7 +1037,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       .domain([0,1.1*yAxisWidth])
       .range([height-padding,padding]);
   if(shape == "circle"){
-    var circle=svg.append("g")
+    var circle =svg.append("g")
       .attr("id","solid")
       .selectAll("circle")
       .data(dataset)
@@ -1053,6 +1053,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
         console.log(ystring);
       })
       .attr("r",document.getElementById("variablessize").value)
+      //.attr("transform",transform(d3.zoomIdentity))
       .on("mouseover",function(d){
         d3.select(this)
           .attr("fill","black");
@@ -1187,6 +1188,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
     return d3.axisLeft(yScale);
   }
   svg.append("g")
+    .attr("calss","grid grid--x")
     .attr("stroke","lightgray")
     .attr("stroke-opacity","0.1")
     .attr("shape-rendering","crispEdges")
@@ -1196,6 +1198,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
     )
     .attr("transform","translate(0,"+padding+")");
   svg.append("g")
+  .attr("class","grid grid--y")
   .attr("stroke","lightgray")
   .attr("stroke-opacity","0.1")
   .attr("shape-rendering","crispEdges")
@@ -1205,7 +1208,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   )
   .attr("transform","translate("+(2*padding)+",0)");
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--x")
       .attr("transform","translate(0,"+(height-padding)+")")
       .call(xAxis)
       .append("text")
@@ -1217,7 +1220,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       .text(xstring);
   
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--y")
       .attr("transform","translate("+(2*padding)+",0)")
       .call(yAxis)
       .append("text")
@@ -1230,6 +1233,76 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
 
   svg.selectAll("text")
       .attr("fill","black");
+  /*svg.append("rect")
+      .attr("fill","none")
+      .attr("pointer-events","all")
+      .attr("width",width)
+      .attr("height",height)
+      .call(d3.zoom()
+        .scaleExtent([1,8])
+        .on("zoom",zoom));
+    function zoom(){
+      circle.attr("transform",transform(d3.event.transform));
+    }
+    function transform(t){
+      return function(d){
+        return "translate("+t.apply(d)+")";
+      };
+    }*/
+  var brush = d3.brush().on("end",brushended),
+      idleTimeout,
+      idleDelay = 350;
+  svg.append("g")
+      .attr("class","brush")
+      .call(brush);
+  function brushended(){
+    var s = d3.event.selection;
+    console.log(s);
+    console.log(idleTimeout);
+    if(!s){
+      if(!idleTimeout){
+        return idleTimeout = setTimeout(idled,idleDelay);
+      }
+      xScale.domain([0,1.1*xAxisWidth]);
+      yScale.domain([0,1.1*yAxisWidth]);
+    }else{
+      xScale.domain([s[0][0],s[1][0]].map(xScale.invert,xScale));
+      yScale.domain([s[1][1],s[0][1]].map(yScale.invert,yScale));
+      svg.select(".brush").call(brush.move,null);
+    }
+    zoom();
+  }
+  function idled(){
+    idleTimeout = null;
+  }
+  function zoom(){
+    var t = svg.transition().duration(750);
+    svg.select(".axis--x").transition(t).call(xAxis);
+    svg.select(".axis--y").transition(t).call(yAxis);
+    svg.select(".grid--x").transition(t).call(make_x_axis()
+    .tickSize(height-2*padding,0,0)
+    .tickFormat(""));
+    svg.select(".grid--y").transition(t).call(make_y_axis()
+    .tickSize(-width+4*padding,0,0)
+    .tickFormat(""));
+    if(shape == "circle"){
+      svg.selectAll("circle").transition(t)
+        .attr("cx",function(d){return xScale(d[xstring]);})
+        .attr("cy",function(d){return yScale(d[ystring]);});
+    }else if(shape == "rect"){
+      svg.selectAll("rect")
+        .attr("x",function(d){
+          return xScale(d[xstring]) - document.getElementById("variablessize").value/2;
+        })
+        .attr("y",function(d){
+          return yScale(d[ystring]) - document.getElementById("variablessize").value/2;
+        });
+    }else if(shape == "ellipse"){
+      svg.selectAll("ellipse")
+      .attr("cx",function(d){return xScale(d[xstring])})
+      .attr("cy",function(d){return yScale(d[ystring])});
+    }
+  }
 }
 
 

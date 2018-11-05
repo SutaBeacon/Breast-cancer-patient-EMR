@@ -155,11 +155,11 @@
                     <div id="selectedvariables"></div>
                     <div class="chartpart">
                         <div id="tooltip" class="hidden"> 
-                            <p><strong>ID:</strong><span id="valueid"></span></p> 
-                            <p><strong>肿瘤性质:</strong><span id="valueproperty"></span></p>
-                            <p><strong>肿瘤周长:</strong><span id="valuegirth"></span></p>
-                            <p><strong>肿瘤平滑度:</strong><span id="valueevenness"></span></p>
-                            <p><strong>肿瘤面积:</strong><span id="valuearea"></span></p>
+                            <p><strong id="nameid" class="hidden">ID:</strong><span id="valueid"></span></p> 
+                            <p><strong id="nameproperty" class="hidden">肿瘤性质:</strong><span id="valueproperty"></span></p>
+                            <p><strong id="namegirth" class="hidden">肿瘤周长:</strong><span id="valuegirth"></span></p>
+                            <p><strong id="nameevenness" class="hidden">肿瘤平滑度:</strong><span id="valueevenness"></span></p>
+                            <p><strong id="namearea" class="hidden">肿瘤面积:</strong><span id="valuearea"></span></p>
                         </div>
                         <div id="chart"></div>
                     </div>
@@ -177,8 +177,8 @@
                                 <th id="linechart"><i class="imgfoldline"></i><p>折线</p></th>
                             </tr>
                             <tr>
-                                <th id="scatter"><i class="imgsolid"></i><p>实点</p></th>
-                                <th id="hollow"><i class="imghollow"></i><p>空点</p></th>
+                                <th id="scattersolid"><i class="imgsolid"></i><p>实点</p></th>
+                                <th id="scatterhollow"><i class="imghollow"></i><p>空点</p></th>
                             </tr>
                             <tr>
                                 <th><i class="imgproportion"></i><p>比重</p></th>

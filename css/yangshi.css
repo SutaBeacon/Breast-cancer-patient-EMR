@@ -542,10 +542,7 @@ div.variablestab{
     stroke: steelblue;
     stroke-width: 1.5px;
   }
-.overlay {
-    fill: none;
-    pointer-events: all;
-}
+
 .focus circle {
     fill: none;
     stroke: steelblue;
@@ -593,6 +590,21 @@ div.variablestab{
     z-index: 100;
 }
 #tooltip.hidden{
+    display: none;
+}
+#nameid.hidden{
+    display: none;
+}
+#nameproperty.hidden{
+    display: none;
+}
+#namegirth.hidden{
+    display: none;
+}
+#namearea.hidden{
+    display: none;
+}
+#nameevenness.hidden{
     display: none;
 }
 #tooltip p{

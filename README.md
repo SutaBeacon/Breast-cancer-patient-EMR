@@ -4,9 +4,10 @@
 An electronic medical record system for breast cancer patients.
 
 ### 2.feauture list
-- several kinds of visualized charts .
+- five kinds of visualized charts .
 - modify the style in the visualized chart,like the color,size,and glyph.
-- user interaction,present data values to users.
+- user interaction,use tooltip to present relative metadata to users.
+- brush and zooming 
 
 ### 3.usage
 - choose two variables from dimensions or magnitudes as the xaxis and yaxis ,click  then it will appear in the choosed variables ,click again then it will disappear. click the subtype in the rightside bar (now we have bar chart, area chart, line chart,solid scatter and hollow scatter)then the svg will show in the chart area.

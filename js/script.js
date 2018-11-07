@@ -563,7 +563,8 @@ function drawlinechart(yAxisWidth,s,shape){
   var svg = d3.select("#chart")
       .append("svg")
       .attr("width",width)
-      .attr("height",height);
+      .attr("height",height)
+      .call(svg);
    
   var xScale = d3.scalePoint()
       .domain(tumourid)
@@ -578,6 +579,17 @@ function drawlinechart(yAxisWidth,s,shape){
   var yAxis =d3.axisLeft(yScale).tickSize(0);
   function make_y_axis(){
     return d3.axisLeft(yScale);
+  }
+  function zoom(svg){
+    const extent = [[2*padding,3*padding],[width-2*padding,height-3*padding]];
+    svg.call(d3.zoom()
+      .scaleExtent([1,20])
+      .translateExtent(extent)
+      .extent(extent)
+      .on("zoom",zoomed));
+    function zoomed(){
+      xScale.range([2*padding,width-2*padding].map(d => d3.event.transform.applyX(d)));
+    }
   }
   svg.append("g")
       .attr("stroke","lightgray")
@@ -803,7 +815,8 @@ function drawareachart(yAxisWidth,s,shape){
   var svg = d3.select("#chart")
       .append("svg")
       .attr("width",width)
-      .attr("height",height);
+      .attr("height",height)
+      .call(zoom);
    
   var xScale = d3.scalePoint()
       .domain(tumourid)
@@ -828,20 +841,21 @@ function drawareachart(yAxisWidth,s,shape){
         .tickFormat(""))
       .attr("transform","translate("+(2*padding)+",0)");
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--x")
+      .attr("clip-path","url(#myclip)")
       .attr("transform","translate(0,"+(height-3*padding)+")")
       .call(xAxis)
       .selectAll("text")
       .attr("transform","rotate(90)"+"translate("+(1.4*padding)+(-padding)+")");
-   d3.select(".axis").append("text")
+   svg.append("text")
       .attr("fill","black")
       .attr("text-anchor","end")
       .attr("font-size",10)
       .attr("x",width)
-      .attr("y",padding)
+      .attr("y",height-2*padding)
       .text("肿瘤ID");
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--y")
       .attr("transform","translate("+(2*padding)+",0)")
       .call(yAxis)
       .append("text")
@@ -860,12 +874,65 @@ function drawareachart(yAxisWidth,s,shape){
   svg.append("path")
       .datum(dataset)
       .attr("id","patharea")
+      .attr("clip-path","url(#myclip)")
       .attr("stroke",document.getElementById("variablescolor").value)
       .attr("fill",document.getElementById("variablescolor").value)
       .attr("d",area);
+
+  // var zoom = d3.zoom()
+  //     .scaleExtent([1,32])
+  //     .translateExtent([0,0],[width,height])
+  //     .extent([0,0],[width,height])
+  //     .on("zoom",zoomed);
+  // svg.append("rect")
+  //     .attr("id","areachartzoom")
+  //     .attr("cursor","move")
+  //     .attr("fill","none")
+  //     .attr("pointer-events","all")
+  //     .attr("width",width)
+  //     .attr("height",height)
+  //     .attr("transform","translate("+2*padding+","+3*padding+")")
+  //     .call(zoom);
+  // function zoomed(){
+  //   var t = d3.event.transform,xt = t.rescaleX(xScale);
+  //   d3.select("#patharea")
+  //     .attr("d",area.xScale(function(d){return xt(d["ID "]);}));
+  //   d3.select(".axis--x").call(xAxis.scale(xt));
+  // }
+  svg.append("defs").append("clipPath")
+      .attr("id","myclip")
+      .append("rect")
+      .attr("x","40")
+      .attr("y","0")
+      .attr("width","600")
+      .attr("height","500");
+  function zoom(svg){
+    const extent = [[2*padding,3*padding],[width-2*padding,height-3*padding]];
+    svg.call(d3.zoom()
+      .scaleExtent([1,20])
+      .translateExtent(extent)
+      .extent(extent)
+      .on("zoom",zoomed));
+    function zoomed(){
+      xScale.range([2*padding,width-2*padding].map(d => d3.event.transform.applyX(d)));
+      d3.select("#patharea").attr("d",area.x(function(d){return xScale(d["ID "]);}));
+      svg.select(".axis--x").call(xAxis);
+      if(shape == "circle"){
+        d3.select("#svgcircles").selectAll("circle").attr("cx",area.x());
+      }else if(shape == "rect"){
+        d3.select("#svgrects").selectAll("rect")
+        .attr("x",function(d){
+          return xScale(d["ID "])-document.getElementById("variablessize").value/2;
+        });
+      }else if(shape == "ellipse"){
+        d3.select("#svgellipses").selectAll("ellipse").attr("cx",area.x());
+      }
+    }
+  }
   if(shape == "circle"){
     var g = svg.append("g")
       .attr("id","svgcircles")
+      .attr("clip-path","url(#myclip)")
       .selectAll("circle")
       .data(dataset)
       .enter()
@@ -921,6 +988,7 @@ function drawareachart(yAxisWidth,s,shape){
   }else if(shape == "ellipse"){
     var g = svg.append("g")
     .attr("id","svgellipses")
+    .attr("clip-path","url(#myclip)")
     .selectAll("ellipse")
     .data(dataset)
     .enter()
@@ -976,6 +1044,7 @@ function drawareachart(yAxisWidth,s,shape){
   }else if(shape == "rect"){
     var g = svg.append("g")
     .attr("id","svgrects")
+    .attr("clip-path","url(#myclip)")
     .selectAll("rect")
     .data(dataset)
     .enter()
@@ -1043,7 +1112,8 @@ function drawcolumn(yAxisWidth,s){
       .append("svg")
       .attr("id","column")
       .attr("width",width)
-      .attr("height",height);
+      .attr("height",height)
+      .call(zoom);
 
   var xScale = d3.scaleBand()
       .domain(tumourid)
@@ -1068,7 +1138,29 @@ function drawcolumn(yAxisWidth,s){
       })
 
   svg.call(tip);*/
-
+  function zoom(svg){
+    const extent = [[2*padding,3*padding],[width-2*padding,height-3*padding]];
+    svg.call(d3.zoom()
+      .scaleExtent([1,20])
+      .translateExtent(extent)
+      .extent(extent)
+      .on("zoom",zoomed));
+    function zoomed(){
+      xScale.range([2*padding,width-2*padding].map(d => d3.event.transform.applyX(d)));
+      svg.select("#svgrects")
+        .selectAll("rect")
+        .attr("x",d => xScale(d["ID "])+xScale.bandwidth()/2)
+        .attr("width",xScale.bandwidth());
+      svg.select(".axis--x").call(xAxis);
+    }
+  }
+  svg.append("defs").append("clipPath")
+      .attr("id","myclip")
+      .append("rect")
+      .attr("x","40")
+      .attr("y","0")
+      .attr("width","600")
+      .attr("height","500");
   function make_y_axis(){
     return d3.axisLeft(yScale);
   }
@@ -1082,21 +1174,22 @@ function drawcolumn(yAxisWidth,s){
       .attr("transform","translate("+(2*padding)+",0)");
 
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--x")
+      .attr("clip-path","url(#myclip)")
       .attr("transform","translate(0,"+(height-3*padding)+")")
       .call(xAxis)
       .selectAll("text")
       .attr("transform","rotate(90)"+"translate("+(1.4*padding)+",0)")
-  d3.select(".axis").append("text")
+  svg.append("text")
       .attr("fill","black")
       .attr("text-anchor","end")
       .attr("font-size",10)
       .attr("x",width-padding)
-      .attr("y",padding)
+      .attr("y",height-2*padding)
       .text("肿瘤ID");
   
   svg.append("g")
-      .attr("class","axis")
+      .attr("class","axis axis--y")
       .attr("transform","translate("+(2*padding)+",0)")
       .call(yAxis)
       .append("text")
@@ -1111,6 +1204,7 @@ function drawcolumn(yAxisWidth,s){
       .attr("fill","black");
   var rects = svg.append("g")
       .attr("id","svgrects")
+      .attr("clip-path","url(#myclip)")
       .selectAll("rect")
       .data(dataset)
       .enter()
@@ -1208,6 +1302,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   if(shape == "circle"){
     var circle =svg.append("g")
       .attr("id","svgcircles")
+      .attr("clip-path","url(#myclip)")
       .selectAll("circle")
       .data(dataset)
       .enter()
@@ -1269,6 +1364,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   }else if(shape == "rect"){
     var g = svg.append("g")
     .attr("id","svgrects")
+    .attr("clip-path","url(#myclip)")
     .selectAll("rect")
     .data(dataset)
     .enter()
@@ -1327,6 +1423,7 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   }else if(shape == "ellipse"){
     var g = svg.append("g")
     .attr("id","svgellipses")
+    .attr("clip-path","url(#myclip)")
     .selectAll("ellipse")
     .data(dataset)
     .enter()
@@ -1461,6 +1558,13 @@ function drawscatter(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       };
     }
   */
+  svg.append("defs").append("clipPath")
+      .attr("id","myclip")
+      .append("rect")
+      .attr("x","40")
+      .attr("y","20")
+      .attr("width","420")
+      .attr("height","460");
   var brush = d3.brush().on("end",brushended),
       idleTimeout,
       idleDelay = 350;
@@ -1542,23 +1646,30 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
       .range([height-padding,padding]);
       
 
-      var brush = d3.brush().on("end",brushended),
-      idleTimeout,
-      idleDelay = 350;
-      svg.append("g")
-      .attr("id","brush")
-      .call(brush);
+  var brush = d3.brush().on("end",brushended),
+    idleTimeout,
+    idleDelay = 350;
+  svg.append("g")
+    .attr("id","brush")
+    .call(brush);
+  svg.append("defs").append("clipPath")
+      .attr("id","myclip")
+      .append("rect")
+      .attr("x","40")
+      .attr("y","20")
+      .attr("width","420")
+      .attr("height","460");
   function brushended(){
     var s = d3.event.selection;
     if(!s){
       if(!idleTimeout){
         return idleTimeout = setTimeout(idled,idleDelay);
       }
-      xScale.domain([0,1.1*xAxisWidth]);
-      yScale.domain([0,1.1*yAxisWidth]);
+      xScale.domain([0,1.1*xAxisWidth]).range([2*padding,width-2*padding]);
+      yScale.domain([0,1.1*yAxisWidth]).range([height-padding,padding]);
     }else{
-      xScale.domain([s[0][0],s[1][0]].map(xScale.invert,xScale));
-      yScale.domain([s[1][1],s[0][1]].map(yScale.invert,yScale));
+      xScale.domain([s[0][0],s[1][0]].map(xScale.invert,xScale)).range([2*padding,width-2*padding]);
+      yScale.domain([s[1][1],s[0][1]].map(yScale.invert,yScale)).range([height-padding,padding]);
       svg.select("#brush").call(brush.move,null);
     }
     zoom();
@@ -1599,6 +1710,7 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   if(shape == "circle"){
     var circle=d3.select("#brush").append("g")
     .attr("id","svgcircles")
+    .attr("clip-path","url(#myclip)")
     .selectAll("circle")
     .data(dataset)
     .enter()
@@ -1659,6 +1771,7 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   }else if(shape == "rect"){
     var circle=d3.select("#brush").append("g")
       .attr("id","svgrects")
+      .attr("clip-path","url(#myclip)")
       .selectAll("rect")
       .data(dataset)
       .enter()
@@ -1718,6 +1831,7 @@ function drawhollow(xAxisWidth,yAxisWidth,xstring,ystring,shape){
   }else if(shape == "ellipse"){
     var circle=d3.select("#brush").append("g")
     .attr("id","svgellipses")
+    .attr("clip-path","url(#myclip)")
     .selectAll("ellipse")
     .data(dataset)
     .enter()

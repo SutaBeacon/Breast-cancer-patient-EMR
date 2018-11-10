@@ -1,7 +1,21 @@
+import { tumourid,dataset,tumourevenness,tumourgirth,tumourarea } from '../data/metedata';
+import math from '../math';
 var drawareachart = function (yAxisWidth,s,shape){
     var width = 700;
     var height = 500;
     var padding = 20;
+    var pccs_id_evenness = math.calculate(tumourid,tumourevenness);
+    console.log(pccs_id_evenness);
+    var pccs_id_girth = math.calculate(tumourid,tumourgirth);
+    console.log(pccs_id_girth);
+    var pccs_id_area = math.calculate(tumourid,tumourarea);
+    console.log(pccs_id_area);
+    var pccs_area_girth = math.calculate(tumourarea,tumourgirth);
+    console.log(pccs_area_girth);
+    var pccs_area_evenness = math.calculate(tumourarea,tumourevenness);
+    console.log(pccs_area_evenness);
+    var pccs_girth_evenness = math.calculate(tumourgirth,tumourevenness);
+    console.log(pccs_girth_evenness);
     var svg = d3.select("#chart")
         .append("svg")
         .attr("width",width)
@@ -143,22 +157,36 @@ var drawareachart = function (yAxisWidth,s,shape){
             .select("#valueid")
             .text(d["ID "]);
           d3.select("#nameid").classed("hidden",false);
-          if(s == "肿瘤周长"){
-            d3.select("#tooltip")
-              .select("#valuegirth")
-              .text(d["肿瘤周长"]);
-            d3.select("#namegirth").classed("hidden",false);
-          }else if(s == "肿瘤面积"){
-            d3.select("#tooltip")
+          if((s == "肿瘤平滑度")||(Math.abs(pccs_id_evenness) > 0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_girth_evenness)>0.1))||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_evenness)>0.1))){
+          d3.select("#tooltip")
+          .select("#valueevenness")
+          .text(d["肿瘤平滑度"]);
+          d3.select("#nameevenness").classed("hidden",false);
+        }
+        if(s != "肿瘤平滑度"){
+          d3.select("#tooltip")
+            .select("#valueproperty")
+            .text(d["肿瘤性质"]);
+          d3.select("#nameproperty").classed("hidden",false);
+        }
+        if((s == "肿瘤周长")||(Math.abs(pccs_id_girth)>0.1)||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_girth_evenness)>0.1))){
+          d3.select("#tooltip")
+            .select("#valuegirth")
+            .text(d["肿瘤周长"]);
+          d3.select("#namegirth").classed("hidden",false);
+        }
+        if((s == "肿瘤面积")||(Math.abs(pccs_id_area)>0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_area_evenness)>0.1))){
+          d3.select("#tooltip")
             .select("#valuearea")
             .text(d["肿瘤面积"]);
-            d3.select("#namearea").classed("hidden",false);
-          }else if(s == "肿瘤平滑度"){
-            d3.select("#tooltip")
-            .select("#valueevenness")
-            .text(d["肿瘤平滑度"]);
-            d3.select("#nameevenness").classed("hidden",false);
-          }
+          d3.select("#namearea").classed("hidden",false);
+        }
           d3.select("#tooltip").classed("hidden",false);
         })
         .on("mouseout",function(){
@@ -199,21 +227,35 @@ var drawareachart = function (yAxisWidth,s,shape){
           .select("#valueid")
           .text(d["ID "]);
         d3.select("#nameid").classed("hidden",false);
-        if(s == "肿瘤周长"){
-          d3.select("#tooltip")
-            .select("#valuegirth")
-            .text(d["肿瘤周长"]);
-          d3.select("#namegirth").classed("hidden",false);
-        }else if(s == "肿瘤面积"){
-          d3.select("#tooltip")
-          .select("#valuearea")
-          .text(d["肿瘤面积"]);
-          d3.select("#namearea").classed("hidden",false);
-        }else if(s == "肿瘤平滑度"){
+        if((s == "肿瘤平滑度")||(Math.abs(pccs_id_evenness) > 0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_girth_evenness)>0.1))||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_evenness)>0.1))){
           d3.select("#tooltip")
           .select("#valueevenness")
           .text(d["肿瘤平滑度"]);
           d3.select("#nameevenness").classed("hidden",false);
+        }
+        if(s != "肿瘤平滑度"){
+          d3.select("#tooltip")
+            .select("#valueproperty")
+            .text(d["肿瘤性质"]);
+          d3.select("#nameproperty").classed("hidden",false);
+        }
+        if((s == "肿瘤周长")||(Math.abs(pccs_id_girth)>0.1)||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_girth_evenness)>0.1))){
+          d3.select("#tooltip")
+            .select("#valuegirth")
+            .text(d["肿瘤周长"]);
+          d3.select("#namegirth").classed("hidden",false);
+        }
+        if((s == "肿瘤面积")||(Math.abs(pccs_id_area)>0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_area_evenness)>0.1))){
+          d3.select("#tooltip")
+            .select("#valuearea")
+            .text(d["肿瘤面积"]);
+          d3.select("#namearea").classed("hidden",false);
         }
         d3.select("#tooltip").classed("hidden",false);
       })
@@ -259,21 +301,35 @@ var drawareachart = function (yAxisWidth,s,shape){
           .select("#valueid")
           .text(d["ID "]);
         d3.select("#nameid").classed("hidden",false);
-        if(s == "肿瘤周长"){
-          d3.select("#tooltip")
-            .select("#valuegirth")
-            .text(d["肿瘤周长"]);
-          d3.select("#namegirth").classed("hidden",false);
-        }else if(s == "肿瘤面积"){
-          d3.select("#tooltip")
-          .select("#valuearea")
-          .text(d["肿瘤面积"]);
-          d3.select("#namearea").classed("hidden",false);
-        }else if(s == "肿瘤平滑度"){
+        if((s == "肿瘤平滑度")||(Math.abs(pccs_id_evenness) > 0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_girth_evenness)>0.1))||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_evenness)>0.1))){
           d3.select("#tooltip")
           .select("#valueevenness")
           .text(d["肿瘤平滑度"]);
           d3.select("#nameevenness").classed("hidden",false);
+        }
+        if(s != "肿瘤平滑度"){
+          d3.select("#tooltip")
+            .select("#valueproperty")
+            .text(d["肿瘤性质"]);
+          d3.select("#nameproperty").classed("hidden",false);
+        }
+        if((s == "肿瘤周长")||(Math.abs(pccs_id_girth)>0.1)||
+        ((s == "肿瘤面积")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_girth_evenness)>0.1))){
+          d3.select("#tooltip")
+            .select("#valuegirth")
+            .text(d["肿瘤周长"]);
+          d3.select("#namegirth").classed("hidden",false);
+        }
+        if((s == "肿瘤面积")||(Math.abs(pccs_id_area)>0.1)||
+        ((s == "肿瘤周长")&&(Math.abs(pccs_area_girth)>0.1))||
+        ((s == "肿瘤平滑度")&&(Math.abs(pccs_area_evenness)>0.1))){
+          d3.select("#tooltip")
+            .select("#valuearea")
+            .text(d["肿瘤面积"]);
+          d3.select("#namearea").classed("hidden",false);
         }
         d3.select("#tooltip").classed("hidden",false);
       })

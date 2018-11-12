@@ -607,6 +607,15 @@ div.variablestab{
 #nameevenness.hidden{
     display: none;
 }
+#namechemotherapy.hidden{
+    display: none;
+}
+#nameage.hidden{
+    display:none;
+}
+#nameproperty.hidden{
+    display: none;
+}
 #tooltip p{
     margin:0;
     font-family: sans-serif;

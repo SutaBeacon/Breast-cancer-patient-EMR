@@ -108,7 +108,7 @@
                             </li>
                             <li>
                                 <h6>肿瘤学特征</h6>
-                                <p>肿瘤性质</p>
+                                <p id="tumourProperty">肿瘤性质</p>
                                 <p>是否转移</p>
                                 <p>初检分型</p>
                             </li>
@@ -124,7 +124,7 @@
                         <ul>
                             <li>
                                 <h6>预录信息</h6>
-                                <p>年龄</p>
+                                <p id="age">年龄</p>
                             </li>
                             <li>
                                 <h6>表征</h6>
@@ -132,20 +132,20 @@
                             </li>
                             <li>
                                 <h6>肿瘤学特征</h6>
-                                <p>肿瘤半径</p>
-                                <p>肿瘤质地</p>
+                                <p id="tumourRadius">肿瘤半径</p>
+                                <p id="tumourTexture">肿瘤质地</p>
                                 <p id="tumourEvenness">肿瘤平滑度</p>
                                 <p id="tumourGirth">肿瘤周长</p>
                                 <p id="tumourArea">肿瘤面积</p>
-                                <p>肿瘤致密度</p>
-                                <p>肿瘤凹陷度</p>
-                                <p>凹陷点数</p>
-                                <p>对称性</p>
+                                <p id="tumourDensity">肿瘤致密度</p>
+                                <p id="tumoursunken">肿瘤凹陷度</p>
+                                <p id="sunkenpoint">凹陷点数</p>
+                                <p id="symmetry">对称性</p>
                             </li>
                             <li>
                                 <h6>内科</h6>
-                                <p>化疗时长</p>
-                                <p>不良反应的出现时间</p>
+                                <p id="chemotherapyDuration">化疗时长</p>
+                                <p id="epoch">不良反应的出现时间</p>
                             </li>      
                         </ul>
                         </div>
@@ -160,6 +160,9 @@
                             <p><strong id="namegirth" class="hidden">肿瘤周长:</strong><span id="valuegirth"></span></p>
                             <p><strong id="nameevenness" class="hidden">肿瘤平滑度:</strong><span id="valueevenness"></span></p>
                             <p><strong id="namearea" class="hidden">肿瘤面积:</strong><span id="valuearea"></span></p>
+                            <p><strong id="namechemotherapy" class="hidden">化疗时长:</strong><span id="valuechemotherapy"></span></p>
+                            <p><strong id="nameage" class="hidden">年龄:</strong><span id="valueage"></span></p>
+                            <p><strong id="nameproperty" class="hidden">肿瘤性质:</strong><span id="valueproperty"></span></p>
                         </div>
                         <div id="chart"></div>
                     </div>
@@ -170,7 +173,7 @@
                         <table id="chartstyle">
                             <tr>
                                 <th id="barchart"><i class="imgbarchart"></i><p>条形</p></th>
-                                <th><i class="imgpie"></i><p>饼图</p></th>
+                                <th id="pie"><i class="imgpie"></i><p>饼图</p></th>
                             </tr>
                             <tr>
                                 <th id="areachart"><i class="imgarea"></i><p>面积</p></th>

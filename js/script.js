@@ -3,6 +3,7 @@ import  { drawareachart }  from './src/areachart';
 import  { drawcolumn }  from './src/column';
 import {drawscatter } from './src/scattersolid';
 import {drawhollow} from './src/scatterhollow';
+import {drawpie} from './src/pie';
 import  {tumourarea,tumourgirth,
   tumourevenness,maxarea,maxgirth,
   maxevenness,dataset,readobjectarray,compare} from './data/metedata';
@@ -76,7 +77,9 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
-      }else if((elementy ==null)&&(elementx.innerText != "肿瘤平滑度")){
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤平滑度")&&
+        (elementx.innerText != "肿瘤性质")&&(elementx.innerText != "化疗时长")
+        &&(elementx.innerText != "年龄")){
         div.setAttribute("id","yaxis");
         div.className +="axismagnitude";
         container.appendChild(div);
@@ -119,7 +122,9 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
-      }else if((elementy ==null)&&(elementx.innerText != "肿瘤周长")){
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤周长")&&
+      (elementx.innerText != "肿瘤性质")&&(elementx.innerText != "化疗时长")
+        &&(elementx.innerText != "年龄")){
         div.setAttribute("id","yaxis");
         div.className +="axismagnitude";
         container.appendChild(div);
@@ -162,7 +167,9 @@ variables.addEventListener("click",function(e){
         div.className +="axisdimension";
         container.appendChild(div);
         break;
-      }else if((elementy ==null)&&(elementx.innerText != "肿瘤面积")){
+      }else if((elementy ==null)&&(elementx.innerText != "肿瘤面积")&&
+      (elementx.innerText != "肿瘤性质")&&(elementx.innerText != "化疗时长")
+        &&(elementx.innerText != "年龄")){
         div.setAttribute("id","yaxis");
         div.className +="axismagnitude";
         container.appendChild(div);
@@ -194,6 +201,54 @@ variables.addEventListener("click",function(e){
         container.removeChild(elementy);
         break;
       }else if((elementx !=null)&&(elementx.innerText == "肿瘤面积")){
+        container.removeChild(elementx);
+        break;
+      }
+      break;
+    case "tumourproperty":
+      div.innerText = "肿瘤性质";
+      if((elementx == null)&&(elementy == null)){
+        div.setAttribute("id","xaxis");
+        div.className += "axisdimension";
+        container.appendChild(div);
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        drawpie("肿瘤性质");
+        break;
+      }else if((elementx != null)&&(elementx.innerText == "肿瘤性质")){
+        container.removeChild(elementx);
+        break;
+      }
+      break;
+    case "age":
+      div.innerText = "年龄";
+      if((elementx == null)&&(elementy == null)){
+        div.setAttribute("id","xaxis");
+        div.className += "axisdimension";
+        container.appendChild(div);
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        drawpie("年龄");
+        break;
+      }else if((elementx != null)&&(elementx.innerText == "年龄")){
+        container.removeChild(elementx);
+        break;
+      }
+      break;
+    case "chemotherapyduration":
+      div.innerText = "化疗时长";
+      if((elementx == null)&&(elementy == null)){
+        div.setAttribute("id","xaxis");
+        div.className += "axisdimension";
+        container.appendChild(div);
+        if(d3.select("svg") != null){
+          d3.select("svg").remove();
+        }
+        drawpie("化疗时长");
+        break;
+      }else if((elementx != null)&&(elementx.innerText == "化疗时长")){
         container.removeChild(elementx);
         break;
       }
@@ -525,58 +580,6 @@ draw.addEventListener("click",function(e){
    }
 },false);*/
 
-
-
-
-/*
-function drawpie(){
-    var pie = d3.pie();
-    var width = 300;
-    var height =300;
-    var outerRadius =width/2;
-    var innerRadius = 0;
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
-    var arc = d3.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(outerRadius);
-    var svg = d3.select("#chart")
-        .append("svg")
-        .attr("width",width)
-        .attr("height",height);
-    var arcs = svg.selectAll("g.arc")
-        .data(pie(tumourarea))
-        .enter()
-        .append("g")
-        .attr("class","src")
-        .attr("transform","translate("+outerRadius+","+outerRadius+")");
-    arcs.append("path")
-        .attr("fill",function(d,i){
-            return color(i);
-        })
-        .attr("d",arc)
-        .on("mouseover",function(d){
-            d3.select(this)
-              .attr("fill","black");
-            arcs.append("text")
-              .attr("id","tooltip")
-              .attr("transform",function(d){
-                  return "translate("+arc.centroid(d)+")";
-              })
-              .attr("text-anchor","middle")
-              .attr("font-family","sans-serif")
-              .attr("font-size","11px")
-              .attr("fill","black")
-              .text(d.value);
-            console.log(d.value);
-          })
-        .on("mouseout",function(){
-            d3.select(this)
-              .attr("fill",function(d,i){
-                  return color(i);
-              });
-            arcs.select("#tooltip").remove();
-          });
-}*/
 
 var variablestag = document.getElementById("variablesattributes");
 variablestag.addEventListener("change",function(e){

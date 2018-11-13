@@ -14,7 +14,9 @@ var tumourradius=[];
 var tumourdensity=[];
 var tumourtexture=[];
 var selfinspection=[];
-var maxarea,maxgirth,maxevenness,dataset; 
+var maxarea,maxgirth,maxevenness,
+maxage,maxradius,maxtexture,maxdensity,
+maxsunken,maxsunkencount,maxsymmetry,maxchemotherapy,dataset; 
 if(!dataset){
   d3.csv("./dataset.csv").then(function(data){
       /*
@@ -67,21 +69,29 @@ var readobjectarray = function (dataset){
         tumourevenness.push(+dataset[i]["肿瘤平滑度"]);
         tumourarea.push(+dataset[i]["肿瘤面积"]);
         epoch.push(dataset[i]["不良反应出现时间"]);
-        sunkencount.push(dataset[i]["凹陷点数"]);
+        sunkencount.push(+dataset[i]["凹陷点数"]);
         fractaldimension.push(dataset[i]["分形维数"]);
-        chemotherapyduration.push(dataset[i]["化疗时长（天）"]);
-        symmetry.push(dataset[i]["对称性"]);
-        patientage.push(dataset[i]["年龄"]);
-        tumourradius.push(dataset[i]["肿瘤半径"]);
-        tumoursunken.push(dataset[i]["肿瘤凹陷度"]);
-        tumourdensity.push(dataset[i]["肿瘤致密度"]);
-        tumourtexture.push(dataset[i]["肿瘤质地"]);
+        chemotherapyduration.push(+dataset[i]["化疗时长"]);
+        symmetry.push(+dataset[i]["对称性"]);
+        patientage.push(+dataset[i]["年龄"]);
+        tumourradius.push(+dataset[i]["肿瘤半径"]);
+        tumoursunken.push(+dataset[i]["肿瘤凹陷度"]);
+        tumourdensity.push(+dataset[i]["肿瘤致密度"]);
+        tumourtexture.push(+dataset[i]["肿瘤质地"]);
         selfinspection.push(dataset[i]["自检时间"]);
       }
     }
   maxarea = d3.max(tumourarea);
   maxgirth = d3.max(tumourgirth);
   maxevenness = d3.max(tumourevenness);
+  maxage = d3.max(patientage);
+  maxradius = d3.max(tumourradius);
+  maxtexture = d3.max(tumourtexture);
+  maxdensity = d3.max(tumourdensity);
+  maxsunken = d3.max(tumoursunken);
+  maxsunkencount = d3.max(sunkencount);
+  maxsymmetry = d3.max(symmetry);
+  maxchemotherapy = d3.max(chemotherapyduration);
 }
 function compare(propertyname){
   return function(a,b){
@@ -96,4 +106,7 @@ export {tumourid,tumourarea,tumourgirth,
   fractaldimension,symmetry,patientage,tumourradius,
   tumoursunken,tumourdensity,tumourtexture,
   maxarea,maxgirth,maxevenness,
+  maxage,maxradius,maxtexture,
+  maxdensity,maxsunken,maxsunkencount,
+  maxsymmetry,maxchemotherapy,
   dataset,readobjectarray,compare};

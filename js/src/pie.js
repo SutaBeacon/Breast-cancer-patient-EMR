@@ -13,53 +13,26 @@ var drawpie = function(string){
         .append("svg")
         .attr("width",width)
         .attr("height",height);
-    var pievalue =[];
-    var piekey = [];
-    var relevance;
+    var piedata = [];
     if(string == "化疗时长"){
-        relevance = chemotherapyduration.reduce(function(allElements,ele){
-        if(ele in allElements){
-            allElements[ele]++;
-        }else{
-            allElements[ele] = 1;
-        }
-        return allElements;
-        },{});
-        console.log(relevance);
-        
+        piedata = countnum(chemotherapyduration);
+        // var sum=0;
+        // for(var i=0;i<piedata.length;i++){
+        //     sum += piedata[i]["value"];
+        // }
+        // console.log(sum);
     }else if(string == "肿瘤性质"){
-        relevance = tumourproperty.reduce(function(allElements,ele){
-        if(ele in allElements){
-            allElements[ele]++;
-        }else{
-            allElements[ele] = 1;
-        }
-        return allElements;
-        },{});
-        console.log(relevance);
+        piedata = countnum(tumourproperty);
     }else if(string == "年龄"){
-        relevance = patientage.reduce(function(allElements,ele){
-        if(ele in allElements){
-            allElements[ele]++;
-        }else{
-            allElements[ele] = 1;
-        }
-        return allElements;
-        },{});
-        console.log(relevance);
+        piedata = countnum(patientage);
     }
-    for(var key in relevance){
-        piekey.push(key);
-        pievalue.push(relevance[key]);
-    }
-    console.log(piekey);
-    console.log(pievalue);
     var arcs = svg.selectAll("g.arc")
-    .data(pie(pievalue))
+    .data(pie.value(function(d){return d.value;})(piedata))
     .enter()
     .append("g")
     .attr("class","src")
     .attr("transform","translate("+outerRadius+","+outerRadius+")"); 
+    console.log(arcs);
     var currentcolor;
     arcs.append("path")
         .attr("fill",function(d,i){
@@ -87,22 +60,21 @@ var drawpie = function(string){
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valuechemotherapy")
-                    .text(d.value);
-                    console.log(d.value);
+                    .text(d.data["key"]+",  "+toPercent(d.value/chemotherapyduration.length));
                 d3.select("#namechemotherapy").classed("hidden",false);
             }else if(string == "年龄"){
                 d3.select("#tooltip")
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valueage")
-                    .text(d.value);
+                    .text(d.data["key"]+",  "+toPercent(d.value/patientage.length));
                 d3.select("#nameage").classed("hidden",false);
             }else if(string == "肿瘤性质"){
                 d3.select("#tooltip")
                 .style("left",e.clientX-800+"px")
                 .style("top",e.clientY-500+"px")
                 .select("#valueproperty")
-                .text(d.value);
+                .text(d.data["key"]+",  "+toPercent(d.value/tumourproperty.length));
                 d3.select("#nameproperty").classed("hidden",false);
             }
           d3.select("#tooltip").classed("hidden",false);
@@ -120,5 +92,28 @@ var drawpie = function(string){
             spannode[i].innerText="";
           }
           });
+}
+function countnum(arr){
+    var objarr = [];
+    for(var i=0;i<arr.length;i++){
+        if(JSON.stringify(objarr).indexOf(arr[i]) == -1){
+            var obj = new Object();
+            obj.key = arr[i];
+            obj.value = 1;
+            objarr.push(obj);
+        }else {
+            for(var j=0;j<objarr.length;j++){
+                if(objarr[j]["key"] == arr[i]){
+                    objarr[j]["value"]++;
+                }
+            }
+        }
+    }
+    return objarr;
+}
+function toPercent(point){
+    var str = Number(point*100).toFixed(2);
+    str += "%";
+    return str;
 }
 export {drawpie};

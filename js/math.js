@@ -28,7 +28,7 @@ var calculate = function(x,y){
         numerator += (x[i]-ave_x)*(y[i]-ave_y);
     }
     denominator = sd_x*sd_y;
-    return numerator/denominator;
+    return Math.abs(numerator/denominator);
 }
 
 export  default {calculate};

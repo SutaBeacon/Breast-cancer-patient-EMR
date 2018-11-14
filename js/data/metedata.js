@@ -51,6 +51,7 @@ var readobjectarray = function (dataset){
     tumourgirth=[];
     tumourevenness=[];
     tumourarea = [];
+    tumourradius=[];
     epoch=[];
     sunkencount=[];
     fractaldimension=[];

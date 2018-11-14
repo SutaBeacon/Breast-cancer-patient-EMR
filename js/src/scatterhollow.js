@@ -1,9 +1,15 @@
 import { tumourid,dataset,tumourevenness,tumourgirth,tumourarea } from '../data/metedata';
 import math from '../math';
-var drawhollow = function(xAxisWidth,yAxisWidth,xstring,ystring,shape){
+var drawhollow = function(shape){
     var width=500;
     var height=500;
     var padding=20;
+    var elementx = document.getElementById("xaxis");
+    var elementy = document.getElementById("yaxis");
+    var ystring = elementy.innerText;
+    var xstring = elementx.innerText;
+    var xAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementx.innerText]));
+    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementy.innerText]));
     var pccs_area_girth = math.calculate(tumourarea,tumourgirth);
     console.log(pccs_area_girth);
     var pccs_area_evenness = math.calculate(tumourarea,tumourevenness);

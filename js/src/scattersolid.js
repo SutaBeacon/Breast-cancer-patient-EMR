@@ -1,5 +1,11 @@
 import {dataset} from '../data/metedata';
-var drawscatter = function(xAxisWidth,yAxisWidth,xstring,ystring,shape){
+var drawscatter = function(shape){
+    var elementx = document.getElementById("xaxis");
+    var elementy = document.getElementById("yaxis");
+    var ystring = elementy.innerText;
+    var xstring = elementx.innerText;
+    var xAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementx.innerText]));
+    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementy.innerText]));
     var width=500;
     var height=500;
     var padding=20;

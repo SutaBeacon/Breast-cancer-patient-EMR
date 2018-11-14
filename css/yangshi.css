@@ -616,6 +616,12 @@ div.variablestab{
 #nameproperty.hidden{
     display: none;
 }
+#namepcc{
+    font-weight: bold;
+}
+#nameproportion.hidden{
+    display: none;
+}
 #tooltip p{
     margin:0;
     font-family: sans-serif;

@@ -60,24 +60,28 @@ var drawpie = function(string){
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valuechemotherapy")
-                    .text(d.data["key"]+",  "+toPercent(d.value/chemotherapyduration.length));
+                    .text(d.data["key"]);
                 d3.select("#namechemotherapy").classed("hidden",false);
             }else if(string == "年龄"){
                 d3.select("#tooltip")
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valueage")
-                    .text(d.data["key"]+",  "+toPercent(d.value/patientage.length));
+                    .text(d.data["key"]);
                 d3.select("#nameage").classed("hidden",false);
             }else if(string == "肿瘤性质"){
                 d3.select("#tooltip")
                 .style("left",e.clientX-800+"px")
                 .style("top",e.clientY-500+"px")
                 .select("#valueproperty")
-                .text(d.data["key"]+",  "+toPercent(d.value/tumourproperty.length));
+                .text(d.data["key"]);
                 d3.select("#nameproperty").classed("hidden",false);
-            }
-          d3.select("#tooltip").classed("hidden",false);
+            }  
+            d3.select("#tooltip")
+                .select("#valueproportion")
+                .text(toPercent(d.value/chemotherapyduration.length))
+            d3.select("#nameproportion").classed("hidden",false);
+            d3.select("#tooltip").classed("hidden",false);
           })
         .on("mouseout",function(){
             d3.select(this)
@@ -87,6 +91,7 @@ var drawpie = function(string){
             d3.select("#namechemotherapy").classed("hidden",true);
             d3.select("#nameage").classed("hidden",true);
             d3.select("#nameproperty").classed("hidden",true);
+            d3.select("#nameproportion").classed("hidden",true);
             var spannode = document.getElementsByTagName("span");
             for(var i=0;i<spannode.length;i++){
             spannode[i].innerText="";

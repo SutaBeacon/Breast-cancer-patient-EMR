@@ -1,9 +1,12 @@
 import { tumourid,dataset,tumourevenness,tumourgirth,tumourarea,readobjectarray } from '../data/metedata';
 import math from '../math';
-var drawcolumn = function (yAxisWidth,s){
+var drawcolumn = function (){
     var width=700;
     var height=500;
     var padding=20;
+    var elementy = document.getElementById("yaxis");
+    var s = elementy.innerText;
+    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementy.innerText]));
     readobjectarray(dataset);
     var pccs_id_evenness = math.calculate(tumourid,tumourevenness);
     console.log(pccs_id_evenness);

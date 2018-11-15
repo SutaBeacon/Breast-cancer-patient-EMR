@@ -13,22 +13,71 @@ import math from '../math';
         .attr("font-size",10)
         .attr("font-family","sans-serif");
     var temp = [];
-    temp.push(tumourid);
-    temp.push(patientage);
-    temp.push(tumourradius);
-    temp.push(tumourtexture);
-    temp.push(tumourevenness);
-    temp.push(tumourgirth);
-    temp.push(tumourarea);
-    temp.push(tumourdensity);
-    temp.push(tumoursunken);
-    temp.push(sunkencount);
-    temp.push(symmetry);
-    temp.push(chemotherapyduration);
-    var variablesname = ["ID编号","年龄","肿瘤半径",
-        "肿瘤质地","肿瘤平滑度","肿瘤周长","肿瘤面积",
-        "肿瘤致密度","肿瘤凹陷度","凹陷点数","对称性","化疗时长"];
+    // temp.push(tumourid);
+    // temp.push(patientage);
+    // temp.push(tumourradius);
+    // temp.push(tumourtexture);
+    // temp.push(tumourevenness);
+    // temp.push(tumourgirth);
+    // temp.push(tumourarea);
+    // temp.push(tumourdensity);
+    // temp.push(tumoursunken);
+    // temp.push(sunkencount);
+    // temp.push(symmetry);
+    // temp.push(chemotherapyduration);
+    // var variablesname = ["ID编号","年龄","肿瘤半径",
+    //     "肿瘤质地","肿瘤平滑度","肿瘤周长","肿瘤面积",
+    //     "肿瘤致密度","肿瘤凹陷度","凹陷点数","对称性","化疗时长"];
     //console.log(temp);
+    var elementy =[];
+    var textelement = [];
+    for(var i=0;i<11;i++){
+        elementy[i] = document.getElementById(`yaxis_${i}`);
+        if(elementy[i] != null){textelement.push(elementy[i].innerText);}
+    }
+    var elementx = document.getElementById("xaxis");
+    if(elementx != null){textelement.push(elementx.innerText);}
+    // console.log(textelement);
+    for(var i=0;i<textelement.length;i++){
+        switch(textelement[i]){
+            case "ID编号":
+                temp.push(tumourid);
+                break;
+            case "化疗时长":
+                temp.push(chemotherapyduration);
+                break;
+            case "对称性":
+                temp.push(symmetry);
+                break;
+            case "凹陷点数":
+                temp.push(sunkencount);
+                break;
+            case "肿瘤凹陷度":
+                temp.push(tumoursunken);
+                break;
+            case "肿瘤致密度":
+                temp.push(tumourdensity);
+                break;
+            case "肿瘤面积":
+                temp.push(tumourarea);
+                break;
+            case "肿瘤周长":
+                temp.push(tumourgirth);
+                break;
+            case "肿瘤平滑度":
+                temp.push(tumourevenness);
+                break;
+            case "肿瘤质地":
+                temp.push(tumourtexture);
+                break;
+            case "肿瘤半径":
+                temp.push(tumourradius);
+                break;
+            case "年龄":
+                temp.push(patientage);
+                break;
+        }
+    }
     var pccs = new Array();
     for(var i =0;i<temp.length;i++){
         pccs[i] = new Array();
@@ -38,7 +87,7 @@ import math from '../math';
             pccs[i][j] = math.calculate(temp[i],temp[j]);
         }
     }
-     console.log(pccs);
+    //  console.log(pccs);
     function groupTicks(d,step){
         var k = (d.endAngle - d.startAngle)/d.value;
         return d3.range(0,d.value,step).map(value=>{
@@ -63,8 +112,8 @@ import math from '../math';
         .domain(d3.range(12))
         .range(d3.schemePaired);
     var chords = chord(pccs);
-    console.log(chords);
-    console.log(chords.groups);
+    // console.log(chords);
+    // console.log(chords.groups);
     var group = svg.append("g")
         .selectAll("g")
         .data(chords.groups)
@@ -77,7 +126,7 @@ import math from '../math';
     group.append("text")
         .each(function(d,i){
              d.angle = (d.startAngle + d.endAngle)/2;
-            d.name = variablesname[i];
+            d.name = textelement[i];
         })
         .attr("dy",".35em")
         .attr("transform",function(d){
@@ -118,14 +167,14 @@ import math from '../math';
             // console.log(d.source.value);
             // console.log(d.source.index);
             // console.log(d.target.index);
-            // console.log(variablesname[d.source.index]);
-            // console.log(variablesname[d.target.index]);
+            // console.log(textelement[d.source.index]);
+            // console.log(textelement[d.target.index]);
             var e = event||window.event;
             d3.select("#tooltip")
                 .style("left",e.clientX-800+"px")
                 .style("top",e.clientY-500+"px")
                 .select("#namepccs")
-                .text("PCCS"+"("+variablesname[d.source.index]+"-"+variablesname[d.target.index]+")"+":  ");
+                .text("PCCS"+"("+textelement[d.source.index]+"-"+textelement[d.target.index]+")"+":  ");
             d3.select("#tooltip")
                 .select("#valuepccs")
                 .text(d.source.value);

@@ -357,6 +357,7 @@ div.choosedvariables{
 }
 #selectedvariables{
     height: 200px;
+    width: 330px;
     position: relative;
     margin-left: 20px;
 }
@@ -636,19 +637,19 @@ div.variablestab{
     display: inline-block;
     border-radius: 10px;
     background-color: red;
-    position: absolute;
+    position: relative;
     padding: 1px 10px;
     font-size: 14px;
-    margin-top: 15px;
+    margin:8px 5px;
     color: black;
 }
 .axismagnitude{
     display: inline-block;
     border-radius: 10px;
     background-color: pink;
-    position: absolute;
+    position: relative;
     padding: 1px 10px;
     font-size: 14px;
-    margin-top: 50px;
+    margin: 8px 5px;
     color: black;
 }

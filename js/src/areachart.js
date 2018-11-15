@@ -4,9 +4,16 @@ var drawareachart = function (shape){
     var width = 700;
     var height = 500;
     var padding = 20;
-    var elementy = document.getElementById("yaxis");
-    var s = elementy.innerText;
-    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementy.innerText]));
+    var elementy = [];
+    var s;
+    for(var i=0;i<11;i++){
+      elementy[i] = document.getElementById(`yaxis_${i}`);
+      if(elementy[i] != null){
+        s = elementy[i].innerText;
+        break;
+      }
+    }
+    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[s]));
     var pccs_id_evenness = math.calculate(tumourid,tumourevenness);
     console.log(pccs_id_evenness);
     var pccs_id_girth = math.calculate(tumourid,tumourgirth);

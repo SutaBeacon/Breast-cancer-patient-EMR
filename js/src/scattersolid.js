@@ -1,11 +1,23 @@
 import {dataset} from '../data/metedata';
 var drawscatter = function(shape){
-    var elementx = document.getElementById("xaxis");
-    var elementy = document.getElementById("yaxis");
-    var ystring = elementy.innerText;
-    var xstring = elementx.innerText;
-    var xAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementx.innerText]));
-    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[elementy.innerText]));
+    var ystring,xstring;
+    var elementy = [];
+    for(var i=0;i<11;i++){
+      elementy[i] = document.getElementById(`yaxis_${i}`);
+      if(elementy[i] != null){
+        xstring = elementy[i].innerText;
+        for(var j=i+1;j<11;j++){
+          elementy[j] = document.getElementById(`yaxis_${j}`);
+          if(elementy[j] != null){
+            ystring = elementy[j].innerText;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    var xAxisWidth = Math.max.apply(Math,dataset.map(d=>d[xstring]));
+    var yAxisWidth = Math.max.apply(Math,dataset.map(d=>d[ystring]));
     var width=500;
     var height=500;
     var padding=20;

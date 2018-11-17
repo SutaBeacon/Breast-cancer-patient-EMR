@@ -14,6 +14,14 @@ var tumourradius=[];
 var tumourdensity=[];
 var tumourtexture=[];
 var selfinspection=[];
+var gender = [];
+var medicalhistory = [];
+var self_inspect_character = [];
+var chujian_character = [];
+var w_transfer = [];
+var initial_types = [];
+var chemotherapymedicine = [];
+var adverse_reaction = [];
 var maxarea,maxgirth,maxevenness,
 maxage,maxradius,maxtexture,maxdensity,
 maxsunken,maxsunkencount,maxsymmetry,maxchemotherapy,dataset; 
@@ -34,7 +42,7 @@ if(!dataset){
         tumourarea.push(+data[i]["肿瘤面积"]);
       }*/
       dataset = data;
-      console.log(data);
+      // console.log(data);
       //xAxisWidth = d3.max(tumourevenness);
       //yAxisWidth = d3.max(tumourarea);
       //yAxisWidth = d3.max(tumourevenness);
@@ -62,6 +70,14 @@ var readobjectarray = function (dataset){
     tumourdensity=[];
     tumourtexture=[];
     selfinspection=[];
+    gender =[];
+    medicalhistory =[];
+    self_inspect_character = [];
+    chujian_character = [];
+    w_transfer =[];
+    initial_types =[];
+    chemotherapymedicine = [];
+    adverse_reaction = [];
     if(dataset){
       for(var i=0;i<dataset.length;i++){
         tumourid.push(+dataset[i]["ID "]);
@@ -80,6 +96,14 @@ var readobjectarray = function (dataset){
         tumourdensity.push(+dataset[i]["肿瘤致密度"]);
         tumourtexture.push(+dataset[i]["肿瘤质地"]);
         selfinspection.push(dataset[i]["自检时间"]);
+        gender.push(dataset[i]["性别"]);
+        medicalhistory.push(dataset[i]["病史"]);
+        self_inspect_character.push(dataset[i]["自检表征"]);
+        chujian_character.push(dataset[i]["触检表征"]);
+        w_transfer.push(dataset[i]["是否转移"]);
+        initial_types.push(dataset[i]["初检分型"]);
+        chemotherapymedicine.push(dataset[i]["化疗用药"]);
+        adverse_reaction.push(dataset[i]["不良反应"]);
       }
     }
   maxarea = d3.max(tumourarea);
@@ -106,8 +130,7 @@ export {tumourid,tumourarea,tumourgirth,
   tumourevenness,epoch,sunkencount,
   fractaldimension,symmetry,patientage,tumourradius,
   tumoursunken,tumourdensity,tumourtexture,
-  maxarea,maxgirth,maxevenness,
-  maxage,maxradius,maxtexture,
-  maxdensity,maxsunken,maxsunkencount,
-  maxsymmetry,maxchemotherapy,
+  gender,medicalhistory,self_inspect_character,
+  chujian_character,w_transfer,initial_types,
+  chemotherapymedicine,adverse_reaction,
   dataset,readobjectarray,compare};

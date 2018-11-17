@@ -5,9 +5,10 @@ import {drawscatter } from './src/scattersolid';
 import {drawhollow} from './src/scatterhollow';
 import {drawpie} from './src/pie';
 import {drawchord} from './src/chorddiagram';
-import  {tumourarea,tumourgirth,
-  tumourevenness,
-  dataset,readobjectarray} from './data/metedata';
+import  {dataset,readobjectarray} from './data/metedata';
+import {drawicicle} from './src/icicle';
+import { drawtidytree } from './src/tidytree';
+import {drawsunburst} from './src/sunburst';
 
 var container = document.getElementById("selectedvariables");
 
@@ -17,9 +18,13 @@ variables.addEventListener("click",function(e){
   var div = document.createElement("div");
   var elementx = document.getElementById("xaxis"); 
   var elementy = [];
+  var elementx = [];
+  var textelementx = [];
   var textelementy = [];
   for(var i=0;i<11;i++){
+    elementx[i] = document.getElementById(`xaxis_${i}`);
     elementy[i] = document.getElementById(`yaxis_${i}`);
+    if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
     if(elementy[i] != null){textelementy.push(elementy[i].innerText);}
   }
   readobjectarray(dataset);
@@ -28,93 +33,154 @@ variables.addEventListener("click",function(e){
   }
   switch(target.id.toLowerCase()){
     case "tumourid":
-      if(elementx == null){
-        var div = document.createElement("div");
-        div.setAttribute("id","xaxis");
+      if(textelementx.length == 0){
+        div.setAttribute("id","xaxis_0");
         div.className += "axisdimension";
         div.innerText = "ID编号";
         container.appendChild(div);
         // console.log(elementy.length);
         if(textelementy.length == 1){
+          //drawsunburst();
+          //drawicicle();
+          //drawtidytree();
           drawcolumn();
+          //console.log("column");
+          //drawicicle();
         }else if(textelementy.length != 0){
+          console.log("chord");
           drawchord();
         }
-      }else if((elementx !=null)&&(elementx.innerText == "ID编号")){
-        container.removeChild(elementx);
+      }else if((textelementx.length != 0)&&(textelementx.indexOf("ID编号") != -1)){
+        for(var i=0;i<10;i++){
+          if((elementx[i] != null)&&(elementx[i].innerText == "ID编号")){
+            container.removeChild(elementx[i]);
+            break;
+          }
+        }
       }
+      break;
+    case "gender":
+      xtododetails("性别");
+      break;
+    case "medicalhistory":
+      xtododetails("病史");
+      break;
+    case "selfinspectcharacter":
+      xtododetails("自检表征");
+      break;
+    case "chujiancharacter":
+      xtododetails("触检表征");
+      break;
+    case "whethertransfer":
+      xtododetails("是否转移");
+      break;
+    case "initialtypes":
+      xtododetails("初检分型");
+      break;
+    case "chemotherapymedicine":
+      xtododetails("化疗用药");
+      break;
+    case "adversereaction":
+      xtododetails("不良反应");
+      break;
+    case "tumourproperty":
+      xtododetails("肿瘤性质");
       break;
     case "tumourevenness":
-      tododetails("肿瘤平滑度");
+      ytododetails("肿瘤平滑度");
       break;
     case "tumourgirth":
-      tododetails("肿瘤周长");
+      ytododetails("肿瘤周长");
       break;
     case "tumourarea":
-      tododetails("肿瘤面积");
-      break;
-    
-    case "tumourproperty":
-      div.innerText = "肿瘤性质";
-      if((elementx == null)&&(textelementy.length == 0)){
-        div.setAttribute("id","xaxis");
-        div.className += "axisdimension";
-        container.appendChild(div);
-        drawpie("肿瘤性质");
-        break;
-      }else if((elementx != null)&&(elementx.innerText == "肿瘤性质")){
-        container.removeChild(elementx);
-        break;
-      }
+      ytododetails("肿瘤面积");
       break;
     case "age":
-      tododetails("年龄");
+      ytododetails("年龄");
       break;
     case "chemotherapyduration":
-      tododetails("化疗时长");
+      ytododetails("化疗时长");
       break;
     case "tumourradius":
-      tododetails("肿瘤半径");
+      ytododetails("肿瘤半径");
       break;
     case "tumourtexture":
-      tododetails("肿瘤质地");
+      ytododetails("肿瘤质地");
       break;
     case "tumourdensity":
-      tododetails("肿瘤致密度");
+      ytododetails("肿瘤致密度");
       break;
     case "tumoursunken":
-      tododetails("肿瘤凹陷度");
+      ytododetails("肿瘤凹陷度");
       break;
     case "sunkenpoint":
-      tododetails("凹陷点数");
+      ytododetails("凹陷点数");
       break;
     case "symmetry":
-      tododetails("对称性");
+      ytododetails("对称性");
       break;
     }
-  function tododetails(s_todo){
+  function xtododetails(s_todo){
     div.innerText = s_todo;
     if(textelementy.length == 0){
+      if(textelementx.length == 0){
+        div.setAttribute("id","xaxis_0");
+        div.className += "axisdimension";
+        container.appendChild(div);
+        console.log("pie"); 
+        drawpie();
+      }else if((textelementx.indexOf(s_todo) == -1)&&(textelementx.indexOf("ID编号") == -1)){
+        for(var i=0;i<10;i++){
+          if(elementx[i] == null){
+            div.setAttribute("id",`xaxis_${i}`);
+            break;
+          }
+        }
+        div.className += "axisdimension";
+        container.appendChild(div);
+        //console.log("tidytree");
+        //drawtidytree();
+        drawicicle();
+      }
+    }
+    if(textelementx.indexOf(s_todo) != -1){
+      for(var i=0;i<10;i++){
+        if((elementx[i] != null)&&(elementx[i].innerText == s_todo)){
+          container.removeChild(elementx[i]);
+          break;
+        }
+      }
+    }
+  }
+  function ytododetails(s_todo){
+    div.innerText = s_todo;
+    if(((textelementx.length == 0)||((textelementx.length == 1)&&(textelementx.indexOf("ID编号") != -1)))
+    &&(textelementy.length == 0)){
       div.setAttribute("id","yaxis_0");
       div.className += "axismagnitude";
       container.appendChild(div);
-      if(((s_todo == "化疗时长")||(s_todo == "年龄"))&&(elementx == null)){
-        drawpie(s_todo);
-      }else if((elementx != null)&&(elementx.innerText == "ID编号")){
+      if((textelementx.length == 0)&&((s_todo == "年龄")||(s_todo == "化疗时长"))){
+        //console.log("pie");
+        drawpie();
+      }else if(textelementx.length == 1){
+        //console.log("column");
         drawcolumn();
       }
-    }else if(textelementy.indexOf(s_todo) == -1){
+    }else if(((textelementx.length == 0)||((textelementx.length == 1)&&(textelementx.indexOf("ID编号") != -1)))
+    &&(textelementy.indexOf(s_todo) == -1)){
       for(var i=0;i<11;i++){
         if(elementy[i] == null){
           div.setAttribute("id",`yaxis_${i}`);
           break;
         }
       }
-      div.className +="axismagnitude";
+      div.className += "axismagnitude";
       container.appendChild(div);
-      if((textelementy.length == 1)&&(elementx == null)){
-        drawscatter("circle");
-      }else{
+      if((textelementy.length == 1)&&(textelementx.length == 0)){
+        //console.log("scatter");
+        drawscatter();
+      }else {
+        //console.log("chord");
         drawchord();
       }
     }else if(textelementy.indexOf(s_todo) != -1){
@@ -134,12 +200,15 @@ variables.addEventListener("click",function(e){
 var draw =document.getElementById("chartstyle");
 draw.addEventListener("click",function(e){
   var target = e.target;
-  var elementx = document.getElementById("xaxis");
+  var elementx = [];
   var elementy = [];
   var textelementy = [];
+  var textelementx = [];
   for(var i=0;i<11;i++){
     elementy[i] = document.getElementById(`yaxis_${i}`);
+    elementx[i] = document.getElementById(`xaxis_${i}`);
     if(elementy[i] != null){textelementy.push(elementy[i].innerText);}
+    if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
   }
   readobjectarray(dataset);
   if(d3.select("svg") != null){
@@ -193,52 +262,63 @@ draw.addEventListener("click",function(e){
   }*/
   switch(target.id.toLowerCase()){
     case "barchart":
-      if((elementx == null)||(textelementy.length == 0)){
+      if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
-      }else if((elementx.innerText != "ID编号")||(textelementy.length != 1)){
+      }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
         alert("所选择的维度不适合条形图，请选择其他图表");
       }else{
         drawcolumn();
       }
       break;
     case "scattersolid":
-      if((elementx != null)||(textelementy.length != 2)){
+      if((textelementx.length != 0)||(textelementy.length != 2)){
         alert("所选择的维度量度不适合散点图，请选择其他图表");
       }else{
         drawscatter("circle");
       }
       break;
     case "scatterhollow":
-    if((elementx != null)||(textelementy.length != 2)){
+    if((textelementx.length != 0)||(textelementy.length != 2)){
       alert("所选择的维度量度不适合散点图，请选择其他图表");
     }else{
       drawhollow("circle");
     }
       break;
     case "linechart":
-      if((elementx == null)||(textelementy.length == 0)){
+      if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
-      }else if((elementx.innerText !="ID编号")||(textelementy.length != 1)){
+      }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
         alert("所选择的维度量度不适合折线图，请选择其他图表");
       }else {
         drawlinechart("circle");
       }
       break;
     case "areachart":
-      if((elementx == null)||(textelementy.length == 0)){
+      if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
-      }else if((elementx.innerText !="ID编号")||(textelementy.length != 1)){
+      }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
         alert("所选择的维度量度不适合面积图，请选择其他图表");
       }else {
         drawareachart("circle");
       }
       break;
     case "chorddiagram":
-      if((textelementy.length < 1)||((elementx !=null)&&(elementx.innerText == "肿瘤性质"))){
+      if((textelementy.length < 1)||((textelementx.length > 0)&&(textelementx.indexOf("ID编号") == -1))){
         alert("请重新选择");
       }else{
         drawchord();
       }
+      break;
+    case "pie":
+      if((textelementx.length == 0)&&(textelementy.length == 1)&&
+      ((textelementy.indexOf("年龄") != -1)||(textelementy.indexOf("化疗时长") != -1))){
+        drawpie();
+      }else if((textelementx.length == 1)&&(textelementy.length == 0)&&(textelementx.indexOf("ID编号")== -1)){
+        drawpie();
+      }else {
+        alert("请重新选择");
+      }
+      break;
   }
 },false);
 

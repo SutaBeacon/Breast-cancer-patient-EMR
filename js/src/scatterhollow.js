@@ -296,6 +296,7 @@ var drawhollow = function(shape){
       return d3.axisLeft(yScale);
     }
     svg.append("g")
+      .attr("class","grid grid--x")
       .attr("stroke","lightgray")
       .attr("stroke-opacity","0.1")
       .attr("shape-rendering","crispEdges")
@@ -305,6 +306,7 @@ var drawhollow = function(shape){
       )
       .attr("transform","translate(0,"+padding+")");
     svg.append("g")
+    .attr("class","grid grid--y")
     .attr("stroke","lightgray")
     .attr("stroke-opacity","0.1")
     .attr("shape-rendering","crispEdges")
@@ -314,7 +316,7 @@ var drawhollow = function(shape){
     )
     .attr("transform","translate("+(2*padding)+",0)");
     svg.append("g")
-        .attr("class","axis")
+        .attr("class","axis axis--x")
         .attr("transform","translate(0,"+(height-padding)+")")
         .call(xAxis)
         .append("text")
@@ -326,7 +328,7 @@ var drawhollow = function(shape){
         .text(xstring);
     
     svg.append("g")
-        .attr("class","axis")
+        .attr("class","axis axis--y")
         .attr("transform","translate("+(2*padding)+",0)")
         .call(yAxis)
         .append("text")

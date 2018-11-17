@@ -1,5 +1,8 @@
-import {chemotherapyduration,patientage,tumourproperty} from '../data/metedata';
-var drawpie = function(string){
+import {gender,medicalhistory,self_inspect_character,
+    chujian_character,w_transfer,initial_types,
+    chemotherapymedicine,adverse_reaction,
+    chemotherapyduration,patientage,tumourproperty} from '../data/metedata';
+var drawpie = function(){
     var pie = d3.pie();
     var width = 300;
     var height =300;
@@ -14,17 +17,43 @@ var drawpie = function(string){
         .attr("width",width)
         .attr("height",height);
     var piedata = [];
-    if(string == "化疗时长"){
-        piedata = countnum(chemotherapyduration);
-        // var sum=0;
-        // for(var i=0;i<piedata.length;i++){
-        //     sum += piedata[i]["value"];
-        // }
-        // console.log(sum);
-    }else if(string == "肿瘤性质"){
-        piedata = countnum(tumourproperty);
-    }else if(string == "年龄"){
-        piedata = countnum(patientage);
+    var elementx = [];
+    var xstring;
+    for(var i=0;i<11;i++){
+        elementx[i] = document.getElementById(`xaxis_${i}`);
+        if(elementx[i] != null){
+          xstring = elementx[i].innerText;
+          break;
+        }
+      }
+    switch(xstring){
+        case "性别":
+            piedata = countnum(gender);
+            break;
+        case "病史":
+            piedata = countnum(medicalhistory);
+            break;
+        case "自检表征":
+            piedata = countnum(self_inspect_character);
+            break;
+        case "触检表征":
+            piedata = countnum(chujian_character);
+            break;
+        case "肿瘤性质":
+            piedata = countnum(tumourproperty);
+            break;
+        case "是否转移":
+            piedata = countnum(w_transfer);
+            break;
+        case "初检分型":
+            piedata = countnum(initial_types);
+            break;
+        case "化疗用药":
+            piedata = countnum(chemotherapymedicine);
+            break;
+        case "不良反应":
+            piedata = countnum(adverse_reaction);
+            break;
     }
     var arcs = svg.selectAll("g.arc")
     .data(pie.value(function(d){return d.value;})(piedata))
@@ -55,21 +84,22 @@ var drawpie = function(string){
             //   .text(d.value);
             // console.log(d.value);
             var e = event || window.event;
-            if(string == "化疗时长"){
+            
+            if(xstring == "化疗时长"){
                 d3.select("#tooltip")
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valuechemotherapy")
                     .text(d.data["key"]);
                 d3.select("#namechemotherapy").classed("hidden",false);
-            }else if(string == "年龄"){
+            }else if(xstring == "年龄"){
                 d3.select("#tooltip")
                     .style("left",e.clientX-800+"px")
                     .style("top",e.clientY-500+"px")
                     .select("#valueage")
                     .text(d.data["key"]);
                 d3.select("#nameage").classed("hidden",false);
-            }else if(string == "肿瘤性质"){
+            }else if(xstring == "肿瘤性质"){
                 d3.select("#tooltip")
                 .style("left",e.clientX-800+"px")
                 .style("top",e.clientY-500+"px")

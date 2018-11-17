@@ -35,8 +35,11 @@ import math from '../math';
         elementy[i] = document.getElementById(`yaxis_${i}`);
         if(elementy[i] != null){textelement.push(elementy[i].innerText);}
     }
-    var elementx = document.getElementById("xaxis");
-    if(elementx != null){textelement.push(elementx.innerText);}
+    var elementx = [];
+    for(var i=0;i<10;i++){
+        if(elementx[i] != null){textelement.push(elementx[i].innerText);}
+        break;
+    }
     // console.log(textelement);
     for(var i=0;i<textelement.length;i++){
         switch(textelement[i]){

@@ -37,6 +37,7 @@ import math from '../math';
     }
     var elementx = [];
     for(var i=0;i<10;i++){
+        elementx[i] = document.getElementById(`xaxis_${i}`);
         if(elementx[i] != null){textelement.push(elementx[i].innerText);}
         break;
     }

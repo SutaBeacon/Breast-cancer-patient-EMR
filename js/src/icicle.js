@@ -9,10 +9,37 @@ var drawicicle =  function(){
         elementx[i] = document.getElementById(`xaxis_${i}`);
         if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
     }
-    console.log(textelementx);
+    // console.log(textelementx);
+    // for(var i=0;i<textelementx.length;i++){
+    //     eval(`var entries_${i}`);
+    //     if(i == 0){ 
+    //         entries_0 = d3.nest().key(function(d){return d[textelementx[i]]});
+    //         console.log(entries_0);
+    //     }else if(i == textelementx.length-1){
+    //         console.log(entries_0);
+    //         eval(`entries_${i}= entries_${i-1}.key(function(d){return d[textelementx[${i}]]}).entries(dataset)`);
+    //     }
+    //     else{
+    //         eval(`entries_${i}= entries_${i-1}.key(function(d){return d[textelementx[${i}]]})`);
+    //     }
+    // }
+    // console.log(eval(`entries_${i-1}`));
+    var entries = [];
     for(var i=0;i<textelementx.length;i++){
-        eval(`var entries_${i}=d3.nest().key(function(d){return d[textelementx[${i}]]})`)
+        if(i == 0){
+            entries[0] = d3.nest().key(function(d){return d[textelementx[0]]});
+        }else if(i == textelementx.length-1){
+            entries[i] = entries[i-1].key(function(d){return d[textelementx[i]]})
+                .rollup(function(leaves){return leaves.length})
+                .entries(dataset);
+        }else {
+            todo(i);
+        }
+        function todo(j){
+            entries[j] = entries[j-1].key(function(d){return d[textelementx[j]]});
+        }
     }
+    // console.log(entries[i-1]);
     // var entries = d3.nest()
     //     .key(function(d){return d["性别"]})
         // .key(function(d){return d["病史"]})
@@ -28,11 +55,11 @@ var drawicicle =  function(){
     // var entries1  = entries.key(function(d){return d["病史"]});
     // var entries2  = entries1.key(function(d){return d["肿瘤性质"]}).entries(dataset);
     // console.log(entries2);
-    /*
+    
     var dataobj = new Object();
     dataobj.key = "patient";
     dataobj.values = new Array();
-    dataobj.values = entries;
+    dataobj.values = entries[i-1];
     // console.log(dataobj);
     var json = JSON.parse(JSON.stringify(dataobj).replace(/key/g,"name"));
     var json2 = JSON.parse(JSON.stringify(json).replace(/values/g,"children"));
@@ -76,9 +103,9 @@ var drawicicle =  function(){
         .attr("y",13);
     text.append("tspan")
         .text(function(d){
-            console.log(d);
-            console.log(d.data)
-            console.log(d.data.name)
+            // console.log(d);
+            // console.log(d.data)
+            // console.log(d.data.name)
             return d.data.name;
         });
     text.append("tspan")
@@ -86,6 +113,6 @@ var drawicicle =  function(){
         .text(d=>`${format(d.value)}`);
     cell.append("title")
         .text(d=>`${d.ancestors().map(d=>d.data.name).reverse().join("/")}\n${format(d.value)}`);
-    */
+    
 }
 export {drawicicle};

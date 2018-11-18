@@ -1,22 +1,31 @@
 import {dataset} from '../data/metedata';
     var drawtidytree = function(){
-        var entries = d3.nest()
-        .key(function(d){return d["性别"]})
-        .key(function(d){return d["病史"]})
-        .key(function(d){return d["肿瘤性质"]})
-        .key(function(d){return d["是否转移"]})
-        .key(function(d){return d["初检分型"]})
-        .key(function(d){return d["自检表征"]})
-        .key(function(d){return d["触检表征"]})
-        .key(function(d){return d["化疗用药"]})
-        .key(function(d){return d["不良反应"]})
-        .rollup(function(leaves){return leaves.length;})
-        .entries(dataset);
+        var elementx =[];
+        var textelementx = [];
+        for(var i=0;i<10;i++){
+            elementx[i] = document.getElementById(`xaxis_${i}`);
+            if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
+        }
+        var entries = [];
+        for(var i=0;i<textelementx.length;i++){
+            if(i == 0){
+                entries[0] = d3.nest().key(function(d){return d[textelementx[0]]});
+            }else if(i == textelementx.length-1){
+                entries[i] = entries[i-1].key(function(d){return d[textelementx[i]]})
+                    .rollup(function(leaves){return leaves.length})
+                    .entries(dataset);
+            }else {
+                todo(i);
+            }
+            function todo(j){
+                entries[j] = entries[j-1].key(function(d){return d[textelementx[j]]});
+            }
+        }
     // console.log(entries);
     var dataobj = new Object();
     dataobj.key = "patient";
     dataobj.values = new Array();
-    dataobj.values = entries;
+    dataobj.values = entries[i-1];
     // console.log(dataobj);
     var json = JSON.parse(JSON.stringify(dataobj).replace(/key/g,"name"));
     var json2 = JSON.parse(JSON.stringify(json).replace(/values/g,"children"));
@@ -25,15 +34,17 @@ import {dataset} from '../data/metedata';
     var width = 500;
     function tree(data){
         // console.log(d3.hierarchy(data));
-        var root = d3.hierarchy(data);
+        var root = d3.hierarchy(data);//计算父节点 子节点 高度和深度
         // console.log(root);
-        root.dx = 1;
+        root.dx = 10-textelementx.length; //第一个元素的初始位置
         root.dy = width/(root.height+1);
         // console.log(d3.tree().nodeSize([root.dx,root.dy])(root));
-        return d3.tree().nodeSize([root.dx,root.dy])(root);
+        return d3.tree().nodeSize([root.dx,root.dy])(root);// 定义tree层级，设置宽高
     }
     const root = tree(json2);
-    // console.log(root);
+    console.log(root);
+    console.log(root.links());
+    console.log(root.descendants().reverse());
     let x0 = Infinity;
     let x1 = -x0;
     root.each(d=>{

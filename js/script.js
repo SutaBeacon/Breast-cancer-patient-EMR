@@ -178,7 +178,7 @@ variables.addEventListener("click",function(e){
       container.appendChild(div);
       if((textelementy.length == 1)&&(textelementx.length == 0)){
         //console.log("scatter");
-        drawscatter();
+        drawscatter("circle");
       }else {
         //console.log("chord");
         drawchord();
@@ -316,6 +316,27 @@ draw.addEventListener("click",function(e){
       }else if((textelementx.length == 1)&&(textelementy.length == 0)&&(textelementx.indexOf("ID编号")== -1)){
         drawpie();
       }else {
+        alert("请重新选择");
+      }
+      break;
+    case "tidytree":
+      if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
+        drawtidytree();
+      }else{
+        alert("请重新选择");
+      }
+      break;
+    case "icicle":
+      if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
+        drawicicle();
+      }else{
+        alert("请重新选择");
+      }
+      break;
+    case "sunburst":
+      if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
+        drawsunburst();
+      }else{
         alert("请重新选择");
       }
       break;

@@ -347,17 +347,21 @@ draw.addEventListener("click",function(e){
 var variablestag = document.getElementById("variablesattributes");
 variablestag.addEventListener("change",function(e){
   var target = e.target;
-  var elementx = document.getElementById("xaxis");var elementy = [];
+  var elementx = [];
+  var elementy = [];
+  var textelementx = [];
   var textelementy = [];
   for(var i=0;i<11;i++){
     elementy[i] = document.getElementById(`yaxis_${i}`);
+    elementx[i] = document.getElementById(`xaxis_${i}`);
+    if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
     if(elementy[i] != null){textelementy.push(elementy[i].innerText);}
   }
   if(d3.select("svg")==null){
         alert("请先生成图表！");
   }
-  if(((elementx !=null)&&(elementx.innerText == "ID编号")&&(textelementy.length == 1))||
-    ((elementx == null)&&(textelementy.length == 2))){
+  if(((textelementx.length ==1)&&(textelementx.indexOf("ID编号") != -1)&&(textelementy.length == 1))||
+    ((textelementx.length == 0)&&(textelementy.length == 2))){
     switch(target.id.toLowerCase()){
       case "variablescolor":
         var color = target.value;
@@ -428,19 +432,22 @@ variablestag.addEventListener("change",function(e){
 },false);
 variablestag.addEventListener("click",function(e){
   var target = e.target;
-  var elementx = document.getElementById("xaxis");
+  var elementx = [];
   var elementy = [];
   var textelementy = [];
+  var textelementx = [];
   for(var i=0;i<11;i++){
+    elementx[i] = document.getElementById(`xaxis_${i}`);
     elementy[i] = document.getElementById(`yaxis_${i}`);
+    if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
     if(elementy[i] != null){textelementy.push(elementy[i].innerText);}
   }
   var shape;
   if(d3.select("svg") == null){
         alert("请先生成图表！");
   }
-  if(((elementx == null)&&(textelementy.length == 2))||
-    (elementx !=null)&&(elementx.innerText == "ID编号")&&(textelementy.length == 1)){
+  if(((textelementx.length == 0)&&(textelementy.length == 2))||
+    (textelementx.length == 1)&&(textelementx.indexOf("ID编号") != -1)&&(textelementy.length == 1)){
     switch(target.id.toLowerCase()){
       case "tabrect": 
         shape = "rect";

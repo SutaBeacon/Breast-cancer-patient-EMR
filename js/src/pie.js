@@ -18,11 +18,16 @@ var drawpie = function(){
         .attr("height",height);
     var piedata = [];
     var elementx = [];
+    var elementy = [];
     var xstring;
     for(var i=0;i<11;i++){
         elementx[i] = document.getElementById(`xaxis_${i}`);
+        elementy[i] = document.getElementById(`yaxis_${i}`);
         if(elementx[i] != null){
           xstring = elementx[i].innerText;
+          break;
+        }else if(elementy[i] != null){
+          xstring = elementy[i].innerText;
           break;
         }
       }
@@ -54,6 +59,12 @@ var drawpie = function(){
         case "不良反应":
             piedata = countnum(adverse_reaction);
             break;
+        case "年龄":
+            piedata = countnum(patientage);
+            break;
+        case "化疗时长":
+            piedata = countnum(chemotherapyduration);
+            break;
     }
     var arcs = svg.selectAll("g.arc")
     .data(pie.value(function(d){return d.value;})(piedata))
@@ -62,6 +73,7 @@ var drawpie = function(){
     .attr("class","src")
     .attr("transform","translate("+outerRadius+","+outerRadius+")"); 
     console.log(arcs);
+    console.log(piedata);
     var currentcolor;
     arcs.append("path")
         .attr("fill",function(d,i){

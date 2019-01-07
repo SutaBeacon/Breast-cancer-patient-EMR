@@ -175,8 +175,8 @@ import math from '../math';
             // console.log(textelement[d.target.index]);
             var e = event||window.event;
             d3.select("#tooltip")
-                .style("left",e.clientX-800+"px")
-                .style("top",e.clientY-500+"px")
+                .style("left",e.clientX-850+"px")
+                .style("top",e.clientY-600+"px")
                 .select("#namepccs")
                 .text("PCCS"+"("+textelement[d.source.index]+"-"+textelement[d.target.index]+")"+":  ");
             d3.select("#tooltip")

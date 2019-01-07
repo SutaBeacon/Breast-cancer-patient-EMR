@@ -99,22 +99,22 @@ var drawpie = function(){
             
             if(xstring == "化疗时长"){
                 d3.select("#tooltip")
-                    .style("left",e.clientX-800+"px")
-                    .style("top",e.clientY-500+"px")
+                    .style("left",e.clientX-850+"px")
+                    .style("top",e.clientY-600+"px")
                     .select("#valuechemotherapy")
                     .text(d.data["key"]);
                 d3.select("#namechemotherapy").classed("hidden",false);
             }else if(xstring == "年龄"){
                 d3.select("#tooltip")
-                    .style("left",e.clientX-800+"px")
-                    .style("top",e.clientY-500+"px")
+                    .style("left",e.clientX-850+"px")
+                    .style("top",e.clientY-600+"px")
                     .select("#valueage")
                     .text(d.data["key"]);
                 d3.select("#nameage").classed("hidden",false);
             }else if(xstring == "肿瘤性质"){
                 d3.select("#tooltip")
-                .style("left",e.clientX-800+"px")
-                .style("top",e.clientY-500+"px")
+                .style("left",e.clientX-850+"px")
+                .style("top",e.clientY-600+"px")
                 .select("#valueproperty")
                 .text(d.data["key"]);
                 d3.select("#nameproperty").classed("hidden",false);

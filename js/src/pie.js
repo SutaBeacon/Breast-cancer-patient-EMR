@@ -96,29 +96,96 @@ var drawpie = function(){
             //   .text(d.value);
             // console.log(d.value);
             var e = event || window.event;
-            
-            if(xstring == "化疗时长"){
-                d3.select("#tooltip")
-                    .style("left",e.clientX-850+"px")
-                    .style("top",e.clientY-600+"px")
-                    .select("#valuechemotherapy")
-                    .text(d.data["key"]);
-                d3.select("#namechemotherapy").classed("hidden",false);
-            }else if(xstring == "年龄"){
-                d3.select("#tooltip")
-                    .style("left",e.clientX-850+"px")
-                    .style("top",e.clientY-600+"px")
-                    .select("#valueage")
-                    .text(d.data["key"]);
-                d3.select("#nameage").classed("hidden",false);
-            }else if(xstring == "肿瘤性质"){
-                d3.select("#tooltip")
-                .style("left",e.clientX-850+"px")
-                .style("top",e.clientY-600+"px")
-                .select("#valueproperty")
-                .text(d.data["key"]);
-                d3.select("#nameproperty").classed("hidden",false);
-            }  
+            switch(xstring){
+                case "性别":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueGender")
+                        .text(d.data["key"]);
+                    d3.select("#nameGender").classed("hidden",false);
+                    break;
+                case "病史":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueMedHistory")
+                        .text(d.data["key"]);
+                    d3.select("#nameMedHistory").classed("hidden",false);
+                    break;
+                case "自检表征":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueSelfInsCharacter")
+                        .text(d.data["key"]);
+                    d3.select("#nameSelfInsCharacter").classed("hidden",false);
+                    break;
+                case "触检表征":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueChuCharacter")
+                        .text(d.data["key"]);
+                    d3.select("#nameChuCharacter").classed("hidden",false);
+                    break;
+                case "肿瘤性质":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueproperty")
+                        .text(d.data["key"]);
+                    d3.select("#nameproperty").classed("hidden",false);
+                    break;
+                case "是否转移":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueWheTransfer")
+                        .text(d.data["key"]);
+                    d3.select("#nameWheTransfer").classed("hidden",false);
+                    break;
+                case "初检分型":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueInitialTypes")
+                        .text(d.data["key"]);
+                    d3.select("#nameInitialTypes").classed("hidden",false);
+                    break;
+                case "化疗用药":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueCheMedicine")
+                        .text(d.data["key"]);
+                    d3.select("#nameCheMedicine").classed("hidden",false);
+                    break;
+                case "不良反应":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueAdReaction")
+                        .text(d.data["key"]);
+                    d3.select("#nameAdReaction").classed("hidden",false);
+                    break;
+                case "年龄":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valueage")
+                        .text(d.data["key"]);
+                    d3.select("#nameage").classed("hidden",false);
+                    break;
+                case "化疗时长":
+                    d3.select("#tooltip")
+                        .style("left",e.clientX-850+"px")
+                        .style("top",e.clientY-600+"px")
+                        .select("#valuechemotherapy")
+                        .text(d.data["key"]);
+                    d3.select("#namechemotherapy").classed("hidden",false);
+                    break;
+            }
             d3.select("#tooltip")
                 .select("#valueproportion")
                 .text(toPercent(d.value/chemotherapyduration.length))
@@ -130,6 +197,14 @@ var drawpie = function(){
               .attr("fill",currentcolor);
             arcs.select("#tooltip").remove();
             d3.select("#tooltip").classed("hidden",true);
+            d3.select("#nameGender").classed("hidden",true);
+            d3.select("#nameMedHistory").classed("hidden",true);
+            d3.select("#nameSelfInsCharacter").classed("hidden",true);
+            d3.select("#nameChuCharacter").classed("hidden",true);
+            d3.select("#nameWheTransfer").classed("hidden",true);
+            d3.select("#nameInitialTypes").classed("hidden",true);
+            d3.select("#nameCheMedicine").classed("hidden",true);
+            d3.select("#nameAdReaction").classed("hidden",true);
             d3.select("#namechemotherapy").classed("hidden",true);
             d3.select("#nameage").classed("hidden",true);
             d3.select("#nameproperty").classed("hidden",true);

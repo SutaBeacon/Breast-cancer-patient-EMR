@@ -596,9 +596,6 @@ div.variablestab{
 #nameid.hidden{
     display: none;
 }
-#nameproperty.hidden{
-    display: none;
-}
 #namegirth.hidden{
     display: none;
 }
@@ -611,6 +608,27 @@ div.variablestab{
 #namechemotherapy.hidden{
     display: none;
 }
+#nameTuRadius.hidden{
+    display: none;
+}
+#nameTuRadius.hidden{
+    display: none;
+}
+#nameTuTexture.hidden{
+    display: none;
+}
+#nameTuDensity.hidden{
+    display:none;
+}
+#nameTuSunken.hidden{
+    display: none;
+}
+#nameTuSunPoint.hidden{
+    display: none;
+}
+#nameSymmetry.hidden{
+    display: none;
+}
 #nameage.hidden{
     display:none;
 }
@@ -621,6 +639,30 @@ div.variablestab{
     font-weight: bold;
 }
 #nameproportion.hidden{
+    display: none;
+}
+#nameGender.hidden{
+    display:none;
+}
+#nameMedHistory.hidden{
+    display:none;
+}
+#nameSelfInsCharacter.hidden{
+    display:none;
+}
+#nameChuCharacter.hidden{
+    display: none;
+}
+#nameWheTransfer.hidden{
+    display:none;
+}
+#nameInitialTypes.hidden{
+    display:none;
+}
+#nameCheMedicine.hidden{
+    display:none;
+}
+#nameAdReaction.hidden{
     display: none;
 }
 #tooltip p{

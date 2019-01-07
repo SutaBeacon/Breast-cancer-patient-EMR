@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的数据</title>
+    <script type="text/javascript" src="./d3/d3.js"></script>
+    <script type="text/javascript" src="./d3/d3.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jspdf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/yangshi.css">
+</head>
+<body>
+    <div class="topnav">
+        <div class="iconleft">
+            <div class="outring">
+                <div class="inring"></div>
+            </div>
+            <p class="title">两颗桃</p>
+            <p class="version">医生版</p>
+        </div>
+        <div class="searchbar">
+            <div class="iconsearch"></div>
+            <input type="text" class="search" name="content" placeholder="快速搜索：查找患者/病历/医生"/>
+        </div>
+        <div class="iconright">
+            <div class="iconmail"></div>
+            <div class="account">
+                <img src="./images/doctor.png" width="100%" height="100%"/>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="leftnav">
+            <ul>
+                <li>
+                    <a href="#jiezhen" >
+                        <i class="jiezhen"></i>
+                        <p>接诊</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#huizhen">
+                        <i class="huizhen"></i>
+                        <p>会诊</p>
+                    </a>
+                </li>
+                <li>
+                    <img class="photo1" src="./images/界面切换符.png"/>
+                    <a href="#mydata">
+                        <i class="mydata"></i>
+                        <p>我的数据</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="inputtime">
+                <p class="reminder">输入筛选时间</p3>
+                <div class="starttime">
+                    <div class="inputyear">
+                        <input type="text" name="startyear"/>
+                    </div>
+                    <p class="time">年</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="startmonth"/>
+                    </div>
+                    <p class="time">月</p4>
+                    <div class="inputdaymon">
+                        <input type="text" name="startday"/>
+                    </div>
+                    <p class="time">日</p>
+                </div>
+                <p class="conjunction">至</p>
+                <div class="endtime">
+                    <div class="inputyear">
+                        <input type="text" name="endyear"/>
+                    </div>
+                    <p class="time">年</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="endmonth"/>
+                    </div>
+                    <p class="time">月</p>
+                    <div class="inputdaymon">
+                        <input type="text" name="endday"/>
+                    </div>
+                    <p class="time">日</p>
+                </div>
+                <p class="result">范围选择</p>
+                <div class="inputrange"></div>
+            </div>
+            <div class="maincontent">
+                <div class="variables" id="variable">
+                    <div class="dimensions">
+                        <i class="photo2 photo2backred"><h3>选择维度</h3></i>
+                        <ul>
+                            <li>
+                                <h6>预录信息</h6>
+                                <p id="gender">性别</p>
+                                <p id="medicalhistory">病史</p>
+                                <p id="tumourId">ID编号</p>
+                            </li>
+                            <li>
+                                <h6>表征</h6>
+                                <p id="selfinspectcharacter">自检表征</p>
+                                <p id="chujiancharacter">触检表征</p>
+                            </li>
+                            <li>
+                                <h6>肿瘤学特征</h6>
+                                <p id="tumourProperty">肿瘤性质</p>
+                                <p id="whethertransfer">是否转移</p>
+                                <p id="initialtypes">初检分型</p>
+                            </li>
+                            <li>
+                                <h6>内科</h6>
+                                <p id="chemotherapymedicine">化疗用药</p>
+                                <p id="adversereaction">不良反应</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="magnitude">
+                        <i class="photo2 photo2backblue"><h3>选择量度</h3></i>
+                        <ul>
+                            <li>
+                                <h6>预录信息</h6>
+                                <p id="age">年龄</p>
+                            </li>
+                            <li>
+                                <h6>表征</h6>
+                                <p>自检时间</p>
+                            </li>
+                            <li>
+                                <h6>肿瘤学特征</h6>
+                                <p id="tumourRadius">肿瘤半径</p>
+                                <p id="tumourTexture">肿瘤质地</p>
+                                <p id="tumourEvenness">肿瘤平滑度</p>
+                                <p id="tumourGirth">肿瘤周长</p>
+                                <p id="tumourArea">肿瘤面积</p>
+                                <p id="tumourDensity">肿瘤致密度</p>
+                                <p id="tumoursunken">肿瘤凹陷度</p>
+                                <p id="sunkenpoint">凹陷点数</p>
+                                <p id="symmetry">对称性</p>
+                            </li>
+                            <li>
+                                <h6>内科</h6>
+                                <p id="chemotherapyDuration">化疗时长</p>
+                                <p id="epoch">不良反应的出现时间</p>
+                            </li>      
+                        </ul>
+                        </div>
+                    </div>
+                <div class="choosedvariables">
+                    <i class="photo2 photo2backblue"><h3>已添加变量</h3></i>
+                    <div id="selectedvariables"></div>
+                    <div class="chartpart">
+                        <div id="tooltip" class="hidden"> 
+                            <p><strong id="nameid" class="hidden">ID:</strong><span id="valueid"></span></p> 
+                            <p><strong id="nameproperty" class="hidden">肿瘤性质:</strong><span id="valueproperty"></span></p>
+                            <p><strong id="nameTuRadius" class="hidden">肿瘤半径:</strong><span id="valueTuRadius"></span></p>
+                            <p><strong id="nameTuTexture" class="hidden">肿瘤质地:</strong><span id="valueTuTexture"></span></p>
+                            <p><strong id="nameTuDensity" class="hidden">肿瘤致密度:</strong><span id="valueTuDensity"></span></p>
+                            <p><strong id="nameTuSunken" class="hidden">肿瘤凹陷度:</strong><span id="valueTuSunken"></span></p>
+                            <p><strong id="nameTuSunPoint" class="hidden">凹陷点数</strong><span id="valueTuSunPoint"></span></p>
+                            <p><strong id="nameSymmetry" class="hidden">对称性:</strong><span id="valueSymmetry"></span></p>
+                            <p><strong id="namegirth" class="hidden">肿瘤周长:</strong><span id="valuegirth"></span></p>
+                            <p><strong id="nameevenness" class="hidden">肿瘤平滑度:</strong><span id="valueevenness"></span></p>
+                            <p><strong id="namearea" class="hidden">肿瘤面积:</strong><span id="valuearea"></span></p>
+                            <p><strong id="namechemotherapy" class="hidden">化疗时长(天):</strong><span id="valuechemotherapy"></span></p>
+                            <p><strong id="nameGender" class="hidden">性别:</strong><span id="valueGender"></span></p>
+                            <p><strong id="nameMedHistory" class="hidden">病史:</strong><span id="valueMedHistory"></span></p>
+                            <p><strong id="nameSelfInsCharacter" class="hidden">自检表征:</strong><span id="valueSelfInsCharacter"></span></p>
+                            <p><strong id="nameChuCharacter" class="hidden">触检表征:</strong><span id="valueChuCharacter"></span></p>
+                            <p><strong id="nameWheTransfer" class="hidden">是否转移:</strong><span id="valueWheTransfer"></span></p>
+                            <p><strong id="nameInitialTypes" class="hidden">初检分型:</strong><span id="valueInitialTypes"></span></p>
+                            <p><strong id="nameCheMedicine" class="hidden">化疗用药:</strong><span id="valueCheMedicine"></span></p>
+                            <p><strong id="nameAdReaction" class="hidden">不良反应:</strong><span id="valueAdReaction"></span></p>
+                            <p><strong id="nameage" class="hidden">年龄:</strong><span id="valueage"></span></p>
+                            <p><strong id="nameproperty" class="hidden">肿瘤性质:</strong><span id="valueproperty"></span></p>
+                            <p><strong id="nameproportion" class="hidden">所占比例:</strong><span id="valueproportion"></span></p>
+                            <p><span id="namepccs"></span><span id="valuepccs"></span> </p>
+                        </div>
+                        <div id="chart"></div>
+                    </div>
+                </div>
+                <div class="rightsidebar">
+                    <div class="subtype">
+                        <i class="photo2 photo2backred"><h3>图表类型</h3></i>
+                        <table id="chartstyle">
+                            <tr>
+                                <th id="barchart"><i class="imgbarchart"></i><p>条形</p></th>
+                                <th id="pie"><i class="imgpie"></i><p>饼图</p></th>
+                            </tr>
+                            <tr>
+                                <th id="areachart"><i class="imgarea"></i><p>面积</p></th>
+                                <th id="linechart"><i class="imgfoldline"></i><p>折线</p></th>
+                            </tr>
+                            <tr>
+                                <th id="scattersolid"><i class="imgsolid"></i><p>实点</p></th>
+                                <th id="scatterhollow"><i class="imghollow"></i><p>空点</p></th>
+                            </tr>
+                            <tr>
+                                <th id="tidytree"><i class="imgproportion"></i><p>树图</p></th>
+                                <th id="chorddiagram" ><i class="imggunter"></i><p>弦图</p></th>
+                            </tr>
+                            <tr>
+                                <th id="icicle"><i class="imgmedian"></i><p>结构</p></th>
+                                <th id="sunburst"><i class="imgfixed"></i><p>放射圆</p></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="variablestab" id="variablesattributes">
+                        <i class="photo2 photo2backred"><h3>变量标记</h3></i>
+                        <ul>
+                            <li>
+                                <p>颜色 <input id="variablescolor" type="color" class="varcolor"/></p>
+                            </li>
+                            <li>
+                                <p>大小<input type="range" id="variablessize" max="10" min="1"/> </p>
+                            </li>
+                            <li>
+                                <p>形状</p>
+                                <div id="tabrect"></div>
+                                <div id="tabellipse"></div>
+                                <div id="tabcircle"></div>
+                            </li>
+                            <li>
+                                <p id="tablable">文字</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="tools">
+                        <a id="exportsvg">导出svg</a>
+                        <a id="exportpng">导出png</a>
+                        <a id="exportpdf">导出pdf</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./js/script.js"></script>
+</body>
+</html>

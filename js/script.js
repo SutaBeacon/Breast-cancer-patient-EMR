@@ -211,9 +211,6 @@ draw.addEventListener("click",function(e){
     if(elementx[i] != null){textelementx.push(elementx[i].innerText);}
   }
   readobjectarray(dataset);
-  if(d3.select("svg") != null){
-    d3.select("svg").remove();
-  }
   /* var p = draw.getElementsByTagName("p");
   var images =draw.getElementsByTagName("img");
  
@@ -262,6 +259,9 @@ draw.addEventListener("click",function(e){
   }*/
   switch(target.id.toLowerCase()){
     case "barchart":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
       }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
@@ -271,6 +271,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "scattersolid":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length != 0)||(textelementy.length != 2)){
         alert("所选择的维度量度不适合散点图，请选择其他图表");
       }else{
@@ -278,6 +281,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "scatterhollow":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
     if((textelementx.length != 0)||(textelementy.length != 2)){
       alert("所选择的维度量度不适合散点图，请选择其他图表");
     }else{
@@ -285,6 +291,9 @@ draw.addEventListener("click",function(e){
     }
       break;
     case "linechart":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
       }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
@@ -294,6 +303,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "areachart":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length == 0)||(textelementy.length == 0)){
         alert("请选择完整的维度量度");
       }else if((textelementx.indexOf("ID编号") == -1)||(textelementy.length != 1)){
@@ -303,6 +315,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "chorddiagram":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementy.length < 1)||((textelementx.length > 0)&&(textelementx.indexOf("ID编号") == -1))){
         alert("请重新选择");
       }else{
@@ -310,6 +325,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "pie":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length == 0)&&(textelementy.length == 1)&&
       ((textelementy.indexOf("年龄") != -1)||(textelementy.indexOf("化疗时长") != -1))){
         drawpie();
@@ -320,6 +338,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "tidytree":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
         drawtidytree();
       }else{
@@ -327,6 +348,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "icicle":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
         drawicicle();
       }else{
@@ -334,6 +358,9 @@ draw.addEventListener("click",function(e){
       }
       break;
     case "sunburst":
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
       if((textelementx.length > 1)&&(textelementx.indexOf("ID编号") == -1)&&(textelementy.length == 0)){
         drawsunburst();
       }else{

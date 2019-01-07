@@ -28,11 +28,11 @@ variables.addEventListener("click",function(e){
     if(elementy[i] != null){textelementy.push(elementy[i].innerText);}
   }
   readobjectarray(dataset);
-  if(d3.select("svg") != null){
-    d3.select("svg").remove();
-  }
   switch(target.id.toLowerCase()){
     case "tumourid":
+      if(d3.select("svg") != null){
+        d3.select("svg").remove();
+      }
       if(textelementx.length == 0){
         div.setAttribute("id","xaxis_0");
         div.className += "axisdimension";
@@ -121,6 +121,9 @@ variables.addEventListener("click",function(e){
       break;
     }
   function xtododetails(s_todo){
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
     div.innerText = s_todo;
     if(textelementy.length == 0){
       if(textelementx.length == 0){
@@ -153,6 +156,9 @@ variables.addEventListener("click",function(e){
     }
   }
   function ytododetails(s_todo){
+    if(d3.select("svg") != null){
+      d3.select("svg").remove();
+    }
     div.innerText = s_todo;
     if(((textelementx.length == 0)||((textelementx.length == 1)&&(textelementx.indexOf("ID编号") != -1)))
     &&(textelementy.length == 0)){

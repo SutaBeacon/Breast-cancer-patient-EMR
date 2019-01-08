@@ -388,6 +388,7 @@ div.subtype{
     color: #fb3165;
 }
 th i{
+    pointer-events: none;
     display: inline-block;
     height: 20px;
     width: 20px;
@@ -395,6 +396,7 @@ th i{
     background-repeat: no-repeat;
 }
 th p{
+    pointer-events: none;
     font-size: 10px;
     margin-bottom: 8px;
     margin-top: 0px;
